@@ -1,0 +1,15 @@
+<h2>Comments:</h2>
+<form action="<?php echo $_SERVER['REQUEST_URI']?>" method="post">
+<label>Message:</label><input type="text" name="content" maxlength="140">
+<input type="submit" value="Submit">
+</form>
+<?php
+$commExist=isset($this->comms)?$this->comms:NULL;
+if(!is_null($commExist)):;
+foreach($this->comms as $message=>$postedby): ?>
+<?php echo $message;?>
+<hr>
+Posted by:<?php echo $postedby;?>
+<hr>
+<?php endforeach;
+endif;?>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/header.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/login-content.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/footer.css" />
+		<link rel="icon" href="<?php echo SKIN?>images/favicon.ico">
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
+		<script type="text/javascript" src="<?php echo SKIN?>js/jquery-1.10.2.js"></script>
+
+	</head>
+	<body>
+		<!-- <div class="header">
+			<span>Here is the header</span>
+			<ul class="list-inline">
+				<li><a href="<?php echo URL?>">Home</a></li>
+				<li><a href="<?php echo URL?>help">Contact</a></li>
+				<li><a href="<?php echo URL?>search">Search</a></li>
+				<?php if(isset($_SESSION['logg_in']) && $_SESSION['logg_in']):?>
+					<li><a href="<?php echo URL?>logout">LogOut</a></li>
+				<?php endif?>
+				<?php if(!isset($_SESSION['logg_in']) || !$_SESSION['logg_in']):?>
+					<li><a href="<?php echo URL?>login">LogIn</a></li>
+					<li><a href="<?php echo URL?>login/register">Register</a></li>
+				<?php endif?>
+			</ul>
+			<hr />
+		</div> -->
+
+		<div class="header">
+			<div class="header-content">
+				<span><a href="<?php echo URL?>">pet4Web</a></span>
+				<ul class="header-menu">
+					<?php if(!isset($_SESSION['logg_in']) || !$_SESSION['logg_in']):?>
+						<li><img src="<?php echo IMG?>register.png" style="width:18px; height:18px;"><a href="<?php echo URL?>login/register">Register</a></li>
+						<li><img src="<?php echo IMG?>login.png" style="width:18px; height:18px;"><a href="<?php echo URL?>login">LogIn</a></li>
+                    <?php endif?>
+					<?php if(isset($_SESSION['logg_in']) && $_SESSION['logg_in']):?>
+                        <li><img src="<?php echo IMG?>login.png" style="width:18px; height:18px;"><a href="<?php echo URL?>myaccount">My Account</a></li>
+                        <li><img src="<?php echo IMG?>login.png" style="width:18px; height:18px;"><a href="<?php echo URL?>logout">LogOut</a></li>
+					<?php endif?>
+					<li><img src="<?php echo IMG?>contact.png" style="width:18px; height:18px;"><a href="<?php echo URL?>contact">Contact</a></li>
+
+					<!-- <li><img src="<?php echo IMG?>register.png" style="width:18px; height:18px;"><a href="<?php echo URL?>login/register">Register</a></li>
+
+					<li><img src="<?php echo IMG?>login.png" style="width:18px; height:18px;"><a href="<?php echo URL?>login">LogIn</a></li> -->
+				</ul>
+				<div class="header-search">
+					<form action="<?php echo URL?>search/doSearch" method="post">
+			        	<input type="search" name="search" placeholder=" Search petition">
+			    	</form>
+				</div>
+				<div class="clear"></div>
+			</div>
+        </div>
+			<!-- <div class="clear"></div> -->
+		<?php
+			if(isset($_SESSION['success_message'])){
+				require "views/success.phtml";
+				unset($_SESSION['success_message']);
+			}
+			if(isset($_SESSION['error_message'])){
+				require "views/error.phtml";
+				unset($_SESSION['error_message']);
+			}
+		?>
+<!-- 	</body>
+</html>
+	 -->

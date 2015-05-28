@@ -1,0 +1,24 @@
+<?php require "views/header.phtml"; ?>
+    <div class="content2">
+        <h2>Create new petition</h2>
+        <form action="<?php echo URL?>/petition/newpetition" method="post">
+            <label>Name:</label><input type="text" name="name" value=""/>
+            <br>
+            <label>Message:</label><input type="text" name="message" value=""/>
+            <br>
+            <label>Category:</label>
+            <select name="category">
+                <option value="1">First</option>
+                <option value="2">Second</option>
+                <option value="3">Third</option>
+            </select>
+            <br>
+            <label>Target:</label><input type="number" name="target" value=""/>
+            <br>
+            <button type="submit">Create</button>
+        </form>
+    </div>
+    <div class="content">
+        <a href="<?php echo URL?>">back to home page</a>
+    </div>
+<?php require "views/footer.phtml"; ?>

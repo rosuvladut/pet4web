@@ -1,0 +1,17 @@
+<?php require "views/header.phtml"; ?>
+<?php if(isset($this->ErrorMessage)):?><div class="content red"><?php echo $this->ErrorMessage?></div><?php endif?>
+<div class="content2">
+	<form action="<?php echo URL?>/login/register" method="post">
+		<label>Email:</label><input type="email" name="username" value=""/>
+		<label>Password:</label><input type="password" name="passwd" value=""/>
+		<br>
+		<label>Name:</label><input type="text" name="name" value=""/>
+		<br>
+		<label>Country:</label><input type="text" name="country" value=""/>
+		<br>
+		<label>Birthdate:</label><input type="date" name="date" value=""/>
+		<br>
+		<button type="submit">Register</button>
+	</form>
+</div>
+<?php require "views/footer.phtml"; ?>

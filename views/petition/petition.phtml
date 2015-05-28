@@ -1,0 +1,21 @@
+<?php require "views/header.phtml"; ?>
+    <div class="content">
+        <h1>Petition page</h1>
+        <form action="<?php echo URL?>petition/sign/<?php echo $this->data[0]['Id']?>" method="post">
+            <button type="submit" name="signed" value="true" <?php if($this->signed==true) echo "disabled"?>>Sign Petition</button>
+        </form>
+        <hr>
+        <?php echo $this->data[0]['Title']?>
+        <br>
+        <?php echo $this->data[0]['Category']?>
+        <hr>
+        <?php echo $this->data[0]['Message']?>
+        <br>
+        <?php echo $this->data[0]['Target']?>
+        <?php echo $this->data[0]['Signed']?>
+        <br>
+        <?php echo $this->startedpet[0]->getName();?>
+        <hr>
+        <?php require "views/petition/comments.phtml"; ?>
+    </div>
+<?php require "views/footer.phtml"; ?>

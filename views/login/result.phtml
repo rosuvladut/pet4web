@@ -1,0 +1,8 @@
+<?php require "views/header.phtml"; ?>
+<div><?php if(isset($this->SuccessMessage)):?>
+	<div class="content green"><?php echo $this->SuccessMessage?></div>
+<?php else:?>
+	<div class="content red"><?php echo $this->ErrorMessage?></div>
+<?php endif?>
+</div>
+<?php require "views/footer.phtml"; ?>
