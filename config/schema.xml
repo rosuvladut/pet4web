@@ -1,0 +1,75 @@
+<database name="default" defaultIdMethod="native"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd"
+          namespace="pet4web"
+        >
+    <table name="users" phpName="Users">
+        <!--
+            Each column has a `name` (the one used by the database), and an optional `phpName` attribute. Once again,
+            the Propel default behavior is to use a CamelCase version of the name as `phpName` when not specified.
+
+            Each column also requires a `type`. The XML schema is database agnostic, so the column types and attributes
+            are probably not exactly the same as the one you use in your own database. But Propel knows how to map the
+            schema types with SQL types for many database vendors. Existing Propel column types are:
+            `boolean`, `tinyint`, `smallint`, `integer`, `bigint`, `double`, `float`, `real`, `decimal`, `char`,
+            `varchar`, `longvarchar`, `date`, `time`, `timestamp`, `blob`, `clob`, `object`, and `array`.
+        -->
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="varchar" size="30" required="true"/>
+        <column name="email" type="varchar" size="38" required="true"/>
+        <column name="password" type="varchar" size="255" required="true"/>
+        <column name="type" type="varchar" size="12" required="true"/>
+        <column name="birth" type="date" required="true"/>
+        <column name="country" type="varchar" size="30" required="true"/>
+    </table>
+
+    <table name="petitions" phpName="Petitions">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="title" type="varchar" size="120" required="true"/>
+        <column name="message" type="varchar" size="800" required="true"/>
+        <column name="state" type="varchar" size="30" required="true"/>
+        <column name="target" type="integer" required="true"/>
+        <column name="signed" type="integer" required="true"/>
+        <column name="userid" type="integer" required="true"/>
+        <column name="category" type="varchar" size="50" required="true"/>
+        <foreign-key foreignTable="users">
+            <reference local="userid" foreign="id"/>
+        </foreign-key>
+    </table>
+
+
+    <table name="comments" phpName="Comments">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="message" type="varchar" size="500" required="true"/>
+        <column name="userid" type="integer" required="true"/>
+        <column name="petid" type ="integer" required="true"/>
+        <foreign-key foreignTable="users">
+            <reference local="userid" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="petitions">
+            <reference local="petid" foreign="id"/>
+        </foreign-key>
+    </table>
+
+    <table name="signatures" phpName="Signatures">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="signed" type="boolean"/>
+        <column name="userid" type="integer" required="true"/>
+        <column name="petid" type ="integer" required="true"/>
+        <foreign-key foreignTable="users">
+            <reference local="userid" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="petitions">
+            <reference local="petid" foreign="id"/>
+        </foreign-key>
+    </table>
+    <!--
+        When you're done with editing, open a terminal and run
+            `$ cd config`
+            `$ vendor/bin/propel build`
+        to generate the model classes.
+
+        You should now be able to perform basic crud operations with your models. To learn how to use these models
+        please look into our documentation: http://propelorm.org/documentation/03-basic-crud.html
+    -->
+</database>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<skipper version="3.2.0.1219" name="Config" mvc="Without MVC" orm="Propel" uuid="51aea62b-f0b5-4672-bcba-a80988a80eb7">
+  <module name="\default" local-name="default" namespace="\pet4web" local-namespace="pet4web" export-format="PropelXml" export-path="schema.xml" uuid="9232e4b2-7913-4f7c-bfd7-6622ff2d9409">
+    <entity name="\pet4web\users" local-name="users" namespace="\pet4web" uuid="ea764113-7ec2-49af-b7ae-6e06f2076945">
+      <field name="id" type="integer" required="true" primary="true" auto-increment="true" uuid="35f29b71-8cf2-4e7f-8e7a-d9f0c1e0a065"/>
+      <field name="name" type="varchar" size="30" required="true" uuid="2aea6a49-b928-4c5d-99e3-d34e4a3c54ae"/>
+      <field name="email" type="varchar" size="38" required="true" uuid="e4d6b516-f605-40a4-addf-d7d9d6099d10"/>
+      <field name="password" type="varchar" size="30" required="true" uuid="d6c7454f-4a99-460c-9035-4ad9af34e202"/>
+      <field name="type" type="varchar" size="12" required="true" uuid="666e34ab-0062-463a-903e-128f6e172465"/>
+      <field name="birth" type="date" required="true" uuid="048d8d52-e2f6-4bc2-b50a-7bf2f048d10e"/>
+      <field name="country" type="varchar" size="30" required="true" uuid="9514693a-2ac8-4c73-b1a9-2d54e8308b4a"/>
+      <orm-attributes>
+        <attribute name="phpName">Users</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\pet4web\petitions" local-name="petitions" namespace="\pet4web" uuid="81e8dc8e-7fee-456e-a5d7-b300dbe66a6f">
+      <field name="id" type="integer" required="true" primary="true" auto-increment="true" uuid="48b458fb-76e5-4c8e-a47f-ce42907d8e2c"/>
+      <field name="title" type="varchar" size="120" required="true" uuid="03cd3f62-2dc5-4c77-bfa0-f8a5985aa8e3"/>
+      <field name="message" type="varchar" size="800" required="true" uuid="575f722a-9f7e-44fd-a6ed-533362827042"/>
+      <field name="state" type="varchar" size="30" required="true" uuid="9e8fd850-cb04-46c8-ab07-b9c6f237ea5f"/>
+      <field name="target" type="integer" required="true" uuid="7cc0f8f8-2106-47cf-90d1-dcdb6d3075de"/>
+      <field name="signed" type="integer" required="true" uuid="ce8b09b9-ff26-41e6-8905-46f3f8a59f75"/>
+      <field name="users_id" type="integer" required="true" uuid="92b9c38f-93e3-4e0d-9746-ff4b7e0a5ab9"/>
+      <field name="categories_id" type="Integer" required="true" uuid="96b3706b-3011-4b79-86df-a03454568342"/>
+      <orm-attributes>
+        <attribute name="phpName">Petitions</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\pet4web\petitions" to="\pet4web\users" caption="Users Petitions" owner-alias="pet_id" inverse-alias="user_id" many-owner="true" many-inverse="false" parent-required="true" uuid="f8d88dc7-ba63-417a-8d64-916fd68c53e2">
+      <association-field from="users_id" to="id"/>
+    </association>
+    <association from="\pet4web\petitions" to="\pet4web\categories" caption="Categories Petitions" inverse-alias="category_name" many-owner="true" many-inverse="false" parent-required="true" uuid="da0fd982-396f-4e24-8cef-a2e5072b3e77">
+      <association-field from="categories_id" to="id"/>
+    </association>
+    <entity name="\pet4web\comments" local-name="comments" namespace="\pet4web" uuid="a93ca53a-6fbf-4385-8859-9cfa62d6ba85">
+      <field name="id" type="integer" required="true" primary="true" auto-increment="true" uuid="ff037de7-af8a-4930-8f46-fcf5ec0d4388"/>
+      <field name="message" type="varchar" size="500" required="true" uuid="e51d3c0d-e7bd-469c-ad31-090221d22452"/>
+      <field name="users_id" type="integer" uuid="50f75494-5a2d-4ed4-82b3-69f13a33892b"/>
+      <orm-attributes>
+        <attribute name="phpName">Comments</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\pet4web\comments" to="\pet4web\users" caption="Users Comments" inverse-alias="user_id" many-owner="true" many-inverse="false" uuid="66f69dfd-59d4-44c4-86e3-4fb725b9eeab">
+      <association-field from="users_id" to="id"/>
+    </association>
+    <entity name="\pet4web\categories" local-name="categories" namespace="\pet4web" uuid="10f74040-daec-4663-b5f1-dfce333cd74c">
+      <field name="id" type="Integer" required="true" unique="true" primary="true" auto-increment="true" uuid="989a2fa8-707b-4f4f-bb83-6dc4ae37c8c9"/>
+      <field name="name" type="Varchar" size="60" uuid="11201fc1-ff79-4a21-93a6-b77adbc73468"/>
+    </entity>
+    <orm-attributes>
+      <attribute name="name">default</attribute>
+      <attribute name="defaultIdMethod">native</attribute>
+      <attribute name="xsi:noNamespaceSchemaLocation">http://xsd.propelorm.org/1.6/database.xsd</attribute>
+    </orm-attributes>
+  </module>
+  <visual-data>
+    <entity uuid="10f74040-daec-4663-b5f1-dfce333cd74c" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="301" position-y="235" size-x="0" size-x2="102" size-y="0" size-y2="45"/>
+    <project uuid="51aea62b-f0b5-4672-bcba-a80988a80eb7" size-x="0" size-x2="695" size-y="0" size-y2="550"/>
+    <association uuid="66f69dfd-59d4-44c4-86e3-4fb725b9eeab" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <entity uuid="81e8dc8e-7fee-456e-a5d7-b300dbe66a6f" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="297" position-y="46" size-x="0" size-x2="120" size-y="0" size-y2="115"/>
+    <module uuid="9232e4b2-7913-4f7c-bfd7-6622ff2d9409" bg-color="#FEEFE3" position-x="50" position-y="50" size-x="0" size-x2="510" size-y="0" size-y2="412"/>
+    <entity uuid="a93ca53a-6fbf-4385-8859-9cfa62d6ba85" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="51" position-y="246" size-x="0" size-x2="120" size-y="0" size-y2="45"/>
+    <association uuid="da0fd982-396f-4e24-8cef-a2e5072b3e77" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <entity uuid="ea764113-7ec2-49af-b7ae-6e06f2076945" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="44" position-y="48" size-x="0" size-x2="117" size-y="0" size-y2="129"/>
+    <association uuid="f8d88dc7-ba63-417a-8d64-916fd68c53e2" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+  </visual-data>
+</skipper>

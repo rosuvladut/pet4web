@@ -1,0 +1,192 @@
+.login {
+	font-family: "Open Sans", Verdana;
+	width: 80%;
+	margin: 0 auto;
+	padding-top: 48px;
+}
+
+.login .login-content p{
+	font-size: 16px;
+	margin: 20px 0;
+	padding: 0;
+	font-weight: 600;
+}
+
+.login .login-content2{
+	background-color: #E0F0F0;
+	border: 1px solid black;
+	padding: 30px 0 30px 60px;
+}
+
+.login .login-content2 form label span {
+	width: 100px;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.login .login-content2 button {
+	margin-left: 100px;
+	background-color: #FFF;
+	padding: 2px 10px;
+	font-size: 14px;
+}
+
+.login .login-content2 .submit{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background-color: #FFF;
+	padding: 2px 10px;
+	font-size: 14px;
+}
+
+.login .login-content2 .no-account{
+	margin-left: 100px;
+	margin-bottom: 10px;
+}
+
+.login .login-content2 .log-register{
+	margin-left: 100px;
+	font-size: 14px;
+}
+
+.hidden {
+	display: none;
+}
+
+@-moz-keyframes bounce {
+  0%, 20%, 50%, 80%,100% {
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -moz-transform: translateY(-25px);
+    transform: translateY(-25px);
+  }
+}
+@-webkit-keyframes bounce {
+  0%, 20%, 50%, 80%,100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -webkit-transform: translateY(-25px);
+    transform: translateY(-25px);
+  }
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%,100% {
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-30px);
+    -ms-transform: translateY(-30px);
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -moz-transform: translateY(-25px);
+    -ms-transform: translateY(-25px);
+    -webkit-transform: translateY(-25px);
+    transform: translateY(-25px);
+  }
+}
+
+.arrow {
+  position: absolute;
+  top: 90px;
+  left: 23.5%;
+  margin-left: -20px;
+  width: 40px;
+  height: 40px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAAHmAAAB5gGF6dvSAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAIFQTFRF////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAga6qMgAAACp0Uk5TAAYKFhoqLjU5P0BLT1tgYmNkZWZnaIKHiJCgrrK61d7k5ufq7O3w+Pn+lfRNCAAAAR9JREFUWMPt1LeygzAQheF1NtcJ55yjzvs/oAsPIKFFLKK5hbbSnOH/Sohc19lfr/sOed/4DQDvsW8/UQAAqEm93lfIej8h1npAxfX66kK+rypMrR5Q03p9FYHv5cKsoAfUrF4vE1y9RJg7e0DNK/R361EqGP16m7y2a6GwMHrKADKEhbDXAZGQ7w1AIFi9CZQKS6vPAaawFPR5wClwvQU4hAHX24ApDLK+eeF6BjCESzOdI7bnAEP4S9eY7VlAF7J/fZ/teUAT+unWOHF9AZAKp0a29V4AoFYkAWilAODV07f27vw8RiQDKDo+z7s2lV4hIL0ABCAAAQhAAP4XsEmAjScwSoCRJ9B6/PpHyxOg4QcAPkPfnqh7uN0OXecnX/1ltRnye60JAAAAAElFTkSuQmCC645fd3e6e5540811a309d2febcaf4473);
+  background-size: contain;
+  opacity: 0.7;
+}
+
+.bounce {
+  -moz-animation: bounce 2s infinite;
+  -webkit-animation: bounce 2s infinite;
+  animation: bounce 2s infinite;
+}
+
+.hidden{
+	display: none;
+}
+
+@media screen and (max-width: 720px) {
+	.login {
+		font-family: "Open Sans", Verdana;
+		width: 95%;
+		margin: 0 auto;
+		padding-top: 24px;
+		padding-bottom: 64px;
+	}
+
+	.login .login-content p{
+		font-size: 16px;
+		margin: 20px 0;
+		padding: 0;
+		font-weight: 600;
+	}
+
+	.login .login-content2{
+		text-align: center;
+		background-color: #E0F0F0;
+		border: 1px solid black;
+		padding: 30px 0 30px 0;
+	}
+
+	.login .login-content2 form label span {
+		width: 100px;
+		display: inline-block;
+		margin-top: 10px;
+	}
+
+
+	.login .login-content2 button {
+		margin-left: 0px;
+		background-color: #FFF;
+		padding: 2px 10px;
+		font-size: 14px;
+	}
+
+	.login .login-content2 .submit{
+		margin-top: 10px;
+		margin-bottom: 10px;
+		background-color: #FFF;
+		padding: 2px 10px;
+		font-size: 14px;
+	}
+
+	.login .login-content2 .no-account{
+		margin-left: 0px;
+		margin-bottom: 10px;
+	}
+
+	.login .login-content2 .log-register{
+		margin-left: 0px;
+		font-size: 14px;
+	}
+
+	.hidden {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 200px) {
+
+	.login .login-content2 input{
+		width: 90%;
+	}
+}
