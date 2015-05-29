@@ -10,10 +10,10 @@
     //define('ROOT_DIR', realpath(dirname(__FILE__)) .'/');
 
     define('ROOT_PATH', '../');
-    define('URL','http://localhost/test/');
-	define('PATH','http://localhost/test/');
-	define('SKIN', 'http://localhost/test/public/');
-    define('IMG', 'http://localhost/test/public/img/');
+    define('URL','http://localhost/pet4web/');
+	define('PATH','http://localhost/pet4web/');
+	define('SKIN', 'http://localhost/pet4web/public/');
+    define('IMG', 'http://localhost/pet4web/public/img/');
 
 	$application = new Bootstrap();
 		
