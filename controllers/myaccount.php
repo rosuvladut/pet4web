@@ -5,11 +5,19 @@ class MyAccount extends Controller{
 	function __construct(){
 		parent::__construct();
 	}
+
+    public function islogged(){
+        if (isset($_SESSION['logg_in']) && $_SESSION['logg_in']){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 	
 	public function index($page='')
     {
         $usermodel=new \pet4web\UsersQuery();
-        $user=new \pet4web\Users();
         $model = new \pet4web\PetitionsQuery();
         if (isset($_SESSION['logg_in']) && $_SESSION['logg_in']) {
             if (!empty($_GET['page']))
@@ -41,6 +49,15 @@ class MyAccount extends Controller{
         }
     }
     public function update(){
-        $this->view->render('account/update');
+        $usermodel=new \pet4web\UsersQuery();
+        if(MyAccount::islogged()) {
+            $user = $usermodel->findOneById($_SESSION['userid']);
+            $this->view->userdata = $user;
+            $this->view->render('account/update');
+        }
+        else{
+            $_SESSION['error_message'] = "Please login to access your account!";
+            header("Location:" . URL . 'index/');
+        }
     }
 }
