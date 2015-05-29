@@ -2,7 +2,7 @@
 	<div class="login">
 		<div class="login-content">
 			<p>Login</p>
-		</div>
+		</div>	
 		<div class="arrow bounce hidden">
 		</div>
 		<div class="login-content2">
@@ -12,17 +12,29 @@
 				<br>
 				<button class="submit" type="submit">Submit</button><br>
 				<button  class="no-account" type="button">Don't Have an Account?</button><br>
-				<!-- <a class="log-register hidden" href="<?php echo URL?>login/register">Register</a> -->
+				<a class="log-register hidden" href="<?php echo URL?>login/register">Register</a>
 			</form>
 		</div>
 	</div>
 	<script type="text/javascript">
 			$(document).ready(function(){
-				$(".no-account").on("click",function(){
-					// $(".no-account").addClass("hidden");
-					$(".arrow").addClass("hidden");
-					$(".arrow").removeClass("hidden");
-				});
+				var $window = $(window);
+				var windowsize = $window.width();
+					function responsiveWidth() {	
+						if (windowsize < 800) {
+							$(".no-account").on("click",function() {
+								$(".log-register").addClass("hidden");
+								$(".log-register").removeClass("hidden");
+							});
+						}
+						else {
+							$(".no-account").on("click",function(){
+							$(".arrow").addClass("hidden");
+							$(".arrow").removeClass("hidden");
+							});
+						}
+					};
+				responsiveWidth();
 			});
 		</script>
 <!-- </body>
