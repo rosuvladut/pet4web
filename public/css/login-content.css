@@ -18,6 +18,10 @@
 	padding: 30px 0 30px 60px;
 }
 
+.login .login-content2 form input{
+	width: 177px;
+}
+
 .login .login-content2 form label span {
 	width: 100px;
 	display: inline-block;
