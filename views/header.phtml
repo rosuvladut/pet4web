@@ -4,6 +4,7 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/header.css" />
 		<link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/login-content.css" />
 		<link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/footer.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/home-contents.css" />
 		<link rel="icon" href="<?php echo SKIN?>images/favicon.ico">
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
 		<script type="text/javascript" src="<?php echo SKIN?>js/jquery-1.10.2.js"></script>
@@ -37,7 +38,7 @@
                     <?php endif?>
 					<?php if(isset($_SESSION['logg_in']) && $_SESSION['logg_in']):?>
                         <li><img src="<?php echo IMG?>login.png" style="width:18px; height:18px;"><a href="<?php echo URL?>myaccount">My Account</a></li>
-                        <li><img src="<?php echo IMG?>login.png" style="width:18px; height:18px;"><a href="<?php echo URL?>logout">LogOut</a></li>
+                        <li><img src="<?php echo IMG?>logout.png" style="width:18px; height:18px; opacity: 0.8;"><a href="<?php echo URL?>logout">LogOut</a></li>
 					<?php endif?>
 					<li><img src="<?php echo IMG?>contact.png" style="width:18px; height:18px;"><a href="<?php echo URL?>contact">Contact</a></li>
 

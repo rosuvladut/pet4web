@@ -22,6 +22,9 @@ body {
 	line-height: 1.5;
 	background-color: #FFF;
 	margin: 0px;
+	/*height: 100%;*/
+	background-image: url("../img/teamwork1.jpg");
+	background-size: cover;
 	
 	/*display: flex;
   	flex-direction: column;*/
@@ -36,7 +39,9 @@ body {
 /***************************************************************/
 
 .header {
-	background-color: #E0F0F0;
+	/*background-color: #E0F0F0;
+	opacity: 0.4;*/
+	background-color: rgba(255, 255, 255, 0.4);
 	border-bottom: 1px solid gray;
 	width: 100%;
 }
@@ -117,7 +122,11 @@ body {
 
 
 @media screen and (max-width: 740px) {
-	
+	body{
+		background-size: auto;
+		background-repeat: no-repeat;
+	}
+
 	.header .header-content {
 		width: 95%;
 		margin: 0 auto;
@@ -144,7 +153,7 @@ body {
 	}
 
 	.header .header-menu li:hover{
-		background-color: #C2E0FF;
+		background-color: rgba(215, 255, 255, 0.4);
 	}
 
 	.header .header-menu li img{

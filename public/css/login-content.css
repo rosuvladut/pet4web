@@ -10,16 +10,17 @@
 	margin: 20px 0;
 	padding: 0;
 	font-weight: 600;
+	color: #EAF4FF;
 }
 
 .login .login-content2{
-	background-color: #E0F0F0;
+	background-color: rgba(255, 255, 255, 0.4);
 	border: 1px solid black;
 	padding: 30px 0 30px 60px;
 }
 
 .login .login-content2 form input{
-	width: 177px;
+	width: 208px;
 }
 
 .login .login-content2 form label span {
@@ -27,7 +28,8 @@
 	display: inline-block;
 	margin-top: 10px;
 	font-weight: 400;
-	font-size: 13px;
+	color: #191935;
+	font-size: 15px;
 }
 
 .login .login-content2 button {
