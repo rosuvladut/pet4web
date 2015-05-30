@@ -1,16 +1,18 @@
 <?php require "views/header.phtml";?>
 <hr>
     Name:<?php echo $this->userdata->getName();?>
+    <br>Email:<?php echo $this->userdata->getEmail();?>
     <br>Country:<?php echo $this->userdata->getCountry();?>
     <br>Birthdate:<?php echo date_format($this->userdata->getBirth(),"d/m/Y");?>
 <hr>
-    <form action="<?php echo URL?>/myaccount/update" method="POST">
+    <form action="<?php echo URL?>myaccount/update" method="POST">
         <p class="form-title">Update user information:</p>
-        <span>* Password:</span> <input type="password"  name="pass1" ><br><br>
-        <span>NewEmail:</span> <input type="email1" name="email2" ><br><br>
-        <span>New Birthdate:</span> <input type="text" pattern="([0][0-9]|[1][0-2])[-]([0][0-9]|[1][0-9]|[2][0-9]|[3][0-1])[-][1][9]([4-8][0-9]|[9][0-6])" name="date2"><br>
+        <span>*Current Password:</span> <input type="password"  name="pass" ><br><br>
+        <span>New Name:</span> <input type="text" name="name2" ><br><br>
+        <span>New Email:</span> <input type="email" name="email2" ><br><br>
+        <span>New Birthdate:</span> <input type="text" pattern="([0][0-9]|[1][0-2])[/]([0][0-9]|[1][0-9]|[2][0-9]|[3][0-1])[/][1][9]([4-8][0-9]|[9][0-6])" name="date2"><br>
         <span>New Country:</span> <input type="text"  name="country2"><br>
-        <span>New Password:</span> <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="pass2"><br><br>
-        <input class="submit" type="submit" value="Submit">
+        <span>New Password:</span> <input type="password" name="pass2"><br><br>
+        <input type="submit" name="submit" value="Submit">
         </form>
 <?php require "views/footer.phtml";?>

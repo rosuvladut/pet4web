@@ -3,6 +3,7 @@
         <h1>My Account</h1>
         <br>
         Name:<?php echo $this->userdata->getName();?>
+        <br>Email:<?php echo $this->userdata->getEmail();?>
         <br>Country:<?php echo $this->userdata->getCountry();?>
         <br>Birthdate:<?php echo date_format($this->userdata->getBirth(),"d/m/Y");?>
         <br><a href="<?php echo URL?>myaccount/update/">Change email/password</a>

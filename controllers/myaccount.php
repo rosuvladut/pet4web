@@ -53,6 +53,31 @@ class MyAccount extends Controller{
         if(MyAccount::islogged()) {
             $user = $usermodel->findOneById($_SESSION['userid']);
             $this->view->userdata = $user;
+            if(isset($_POST['submit'])&&isset($_POST['pass'])&&!empty($_POST['pass']))
+            {
+                $usermodel=$usermodel->findOneById($_SESSION['userid']);
+                if(password_verify($_POST['pass'],$usermodel->getPassword())) {
+                    if(isset($_POST['email2'])&&!empty($_POST['email2']))
+                        $usermodel->setEmail($_POST['email2']);
+                    if(isset($_POST['pass2'])&&!empty($_POST['pass2']))
+                        $usermodel->setPassword(password_hash($_POST['pass2'], PASSWORD_DEFAULT));
+                    if(isset($_POST['name2'])&&!empty($_POST['name2']))
+                        $usermodel->setName($_POST['name2']);
+                    if(isset($_POST['date2'])&&!empty($_POST['date2']))
+                        $usermodel->setBirth($_POST['date2']);
+                    if(isset($_POST['country2'])&&!empty($_POST['country2']))
+                        $usermodel->setCountry($_POST['country2']);
+                    if ($usermodel->save()) {
+                        $_SESSION["success_message"] = "Successfully updated!";
+                    }
+                }
+                else{
+                    $_SESSION['error_message']="Current password is incorrect!";
+                }
+            }
+            else if(isset($_POST['submit'])&&empty($_POST['pass'])){
+                $_SESSION['error_message']="Please insert current password to update your account details!";
+            }
             $this->view->render('account/update');
         }
         else{
