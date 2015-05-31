@@ -24,7 +24,6 @@
 	width: 15%;
 	text-align: center;
 }
-
 .table-petdetails .pet-name{
 	width: 55%;
 	/*text-align: center;*/
@@ -64,4 +63,4 @@
 
 .hidden{
 	display: none;
-}
+}	
