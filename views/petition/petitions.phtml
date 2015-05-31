@@ -1,70 +1,37 @@
 <?php require "views/header.phtml"; ?>
-<div class="login pets">
-    <div class="login-content">
-        <p>Petitions page</p>
-    </div>  
-    <!-- <h1>Petitions page</h1> -->
-    <div class="table-petitions">
-        <!-- <hr> -->
-        <table class="table-columns" width="100%" align="center" cellpadding="0" cellspacing="1" border="0">
-            <thead>
+<div class="content">
+    <h1>Petitions page</h1>
+    <hr>
+    <table width="80%" align="center" cellpadding="0" cellspacing="1" border="0">
+        <thead>
+        <tr>
+            <th align="left"><b>Name</b></th>
+            <th align="left"><b>Category</b></th>
+            <th align="left"><b>Signed</b></th>
+            <th align="left"><b>Target</b></th>
+        </tr>
+        </thead>
+    </table>
+    <hr>
+    <table width="80%" align="center" cellpadding="0" cellspacing="1" border="0">
+        <?php
+        $pets=$this->data;
+        foreach($pets as $row):?>
             <tr>
-                <th class="column-name1" align="left"><b>Name</b></th>
-                <th class="column-name" align="left"><b class="cat_but">Category</b></th>
-                <th class="column-name" align="left"><b class="signed-but">Signed</b></th>
-                <th class="column-name" align="left"><b class="target-but">Target</b></th>
+                <td align="left"><a href="<?php echo URL?>petition/petitiondetail/<?php echo $row->getId()?>"><?php echo $row->getTitle();?></a></td>
+                <td align="left"><?php echo $row->getCategory();?></td>
+                <td align="left"><?php echo $row->getSigned();?></td>
+                <td align="left"><?php echo $row->getTarget();?></td>
             </tr>
-            </thead>
-        </table>
-        <hr>
-        <table class="table-petdetails" width="100%" align="center" cellpadding="0" cellspacing="1" border="0">
-            <?php
-            $pets=$this->data;
-            foreach($pets as $row):?>
-                <tr>
-                    <td class="pet-name" align="left"><a href="<?php echo URL?>petition/petitiondetail/<?php echo $row->getId()?>"><?php echo $row->getTitle();?></a></td>
-                    <td class="atrCell " align="left"><span class="att-cat" ><?php echo $row->getCategory();?></span></td>
-                    <td class="atrCell" align="left"><span class="att-sig"><?php echo $row->getSigned();?></span></td>
-                    <td class="atrCell" align="left"><span class="att-target"><?php echo $row->getTarget();?></span></td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-        <form action="<?php echo URL?>petition/index" method="get">
-            <?php
-            if($this->pagesExist):
-                foreach($this->pages as $page):?>
-                    <input type="submit" name="page" value="<?php echo $page?>">
-                <?php endforeach; endif; ?>
-        <!-- <hr> -->
-    </div>
-    <!-- <a href="<?php echo URL?>">back to home page</a> -->
+        <?php endforeach; ?>
+    </table>
+    <form action="<?php echo URL?>petition/index" method="get">
+        <?php
+        if($this->pagesExist):
+            foreach($this->pages as $page):?>
+                <input type="submit" name="page" value="<?php echo $page?>">
+            <?php endforeach; endif; ?>
+    <hr>
+    <a href="<?php echo URL?>">back to home page</a>
 </div>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".cat_but").on("mouseenter", function(){
-            // $(".att2").css("color","blue");
-            $(".att-cat").css("border", "1px solid rgba(148, 28, 0, 0.8)").css("border-radius", "30px").css("padding","3px 8px");
-        });
-        $(".cat_but").on("mouseleave", function(){
-            // $(".att2").css("color","blue");
-            $(".att-cat").css("border", "0px");
-        });
-
-        $(".signed-but").on("mouseenter",function(){
-            $(".att-sig").css("border", "1px solid rgba(148, 28, 0, 0.8)").css("border-radius", "30px").css("padding","3px 8px");
-        });
-
-        $(".signed-but").on("mouseleave",function(){
-            $(".att-sig").css("border", "0px");
-        });
-
-        $(".target-but").on("mouseenter",function(){
-            $(".att-target").css("border", "1px solid rgba(148, 28, 0, 0.8)").css("border-radius", "30px").css("padding","3px 8px");
-        });
-
-        $(".target-but").on("mouseleave",function(){
-            $(".att-target").css("border", "0px");
-        });
-    });
-</script>
 <?php require "views/footer.phtml"; ?>

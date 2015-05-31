@@ -1,18 +1,15 @@
-<h2 class="comments">Comments:</h2>
-<form class="comments-form" action="<?php echo $_SERVER['REQUEST_URI']?>" method="post">
-	<label><span>Message: </span></label><input type="text" name="content" maxlength="140">
-	<input type="submit" value="Submit">
+<h2>Comments:</h2>
+<form action="<?php echo $_SERVER['REQUEST_URI']?>" method="post">
+<label>Message:</label><input type="text" name="content" maxlength="140">
+<input type="submit" value="Submit">
 </form>
-<!-- <hr style="background:rgba(255, 255, 255, 0.7); border:0; height:4px" /> -->
 <?php
-	$commExist=isset($this->comms)?$this->comms:NULL;
-	if(!is_null($commExist)):;
-	foreach($this->comms as $message=>$postedby): ?>
-	<div id="comment-zone">
-		<span class="comment-message"><?php echo $message;?></span><br>
-		<span class="author-of-pet">Posted by: <span><?php echo $postedby;?></span></span>
-		<div class="clear"></div>
-	</div>
-	<!-- <hr style="background:rgba(255, 255, 255, 0.7); border:0; height:4px" /> -->
-	<?php endforeach;
-	endif;?>
+$commExist=isset($this->comms)?$this->comms:NULL;
+if(!is_null($commExist)):;
+foreach($this->comms as $message=>$postedby): ?>
+<?php echo $message;?>
+<hr>
+Posted by:<?php echo $postedby;?>
+<hr>
+<?php endforeach;
+endif;?>

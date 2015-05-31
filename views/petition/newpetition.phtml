@@ -1,29 +1,24 @@
 <?php require "views/header.phtml"; ?>
-    <div class="login">
-        <div class="login-content">
-            <p>Create new petition</p>
-        </div>  
-        <!-- <h2>Create new petition</h2> -->
-        <div class="login-content2">
-            <form action="<?php echo URL?>/petition/newpetition" method="post">
-                <label><span>Name:</span></label><input type="text" name="name" required pattern="[a-zA-Z ]{6}[a-zA-Z ]*" title="Please, use only letters, white spaces and be sure you have a length greater than 6" value=""/>
-                <br>
-                <label><span>Message:</span></label><input type="text" required pattern="[!@#$%^&*()_-+=:;<,.>/1-9a-zA-Z ]{10}[!@#$%^&*()_-+=:;<,.>/1-9a-zA-Z ]*" title="Please, use only letters, white spaces, digits and be sure you have a length greater than 10" name="message" value=""/>
-                <br>
-                <label><span>Category:</span></label>
-                <select name="category">
-                    <option value="1">First</option>
-                    <option value="2">Second</option>
-                    <option value="3">Third</option>
-                </select>
-                <br>
-                <label><span>Target:</span></label><input type="number" name="target" value=""/>
-                <br>
-                <button class="create-button" type="submit">Create</button>
-            </form>
-        </div>
+    <div class="content2">
+        <h2>Create new petition</h2>
+        <form action="<?php echo URL?>/petition/newpetition" method="post">
+            <label>Name:</label><input type="text" name="name" value=""/>
+            <br>
+            <label>Message:</label><input type="text" name="message" value=""/>
+            <br>
+            <label>Category:</label>
+            <select name="category">
+                <option value="1">First</option>
+                <option value="2">Second</option>
+                <option value="3">Third</option>
+            </select>
+            <br>
+            <label>Target:</label><input type="number" name="target" value=""/>
+            <br>
+            <button type="submit">Create</button>
+        </form>
     </div>
-    <!-- <div class="content">
+    <div class="content">
         <a href="<?php echo URL?>">back to home page</a>
-    </div> -->
+    </div>
 <?php require "views/footer.phtml"; ?>
