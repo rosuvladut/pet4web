@@ -1,23 +1,23 @@
 <?php require "views/header.phtml"; ?>
     <div class="login">
-        <div class="login-content">
+        <!-- <div class="login-content">
             <p id="petition-title"> <?php echo $this->data->getTitle()?></p>
-        </div>
-        <form action="<?php echo URL?>petition/sign/<?php echo $this->data[0]['Id']?>" method="post">
-            <p id="petition-title"> <?php echo $this->data[0]['Title']?></p>
+        </div> -->
+        <form action="<?php echo URL?>petition/sign/<?php echo $this->data->getId()?>" method="post">
+            <p id="petition-title"> <?php echo $this->data->getTitle()?></p>
             <button class="sign-this-petition" type="submit" name="signed" value="true" <?php if($this->signed==true) echo "disabled"?>>Sign Petition</button>
             <div class="clear"></div>
         </form>
         <div class="clear"></div>
         <div class="login-content2" id="pet-box">
-            <!-- <p><?php echo $this->data[0]['Title']?></p> -->
             <span><?php echo $this->data->getMessage()?></span>
             <br>
             <div class="cat-info">
                 <span>Category: </span><?php echo $this->data->getCategory()?>
-                <span>| Target: </span><?php echo $this->data->getTarget()?>
-                <span>| Signed: </span><?php echo $this->data->getSigned()?>
-                <span>| Author: </span><?php echo $this->startedpet->getName();?>
+                <span>|  Target: </span><?php echo $this->data->getTarget()?>
+                <span>|  Signed: </span><?php echo $this->data->getSigned()?>
+                <span>|  Author: </span><?php echo $this->startedpet->getName();?>
             </div>
         </div>    
+        <?php require "views/petition/comments.phtml"; ?>
 <?php require "views/footer.phtml"; ?>
