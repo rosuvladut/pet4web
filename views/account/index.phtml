@@ -15,6 +15,7 @@
                 <th align="left"><b>Category</b></th>
                 <th align="left"><b>Signed</b></th>
                 <th align="left"><b>Target</b></th>
+                <th align="left"><b>Actions</b></th>
             </tr>
             </thead>
         </table>
@@ -28,6 +29,8 @@
                     <td align="left"><?php echo $row->getCategory();?></td>
                     <td align="left"><?php echo $row->getSigned();?></td>
                     <td align="left"><?php echo $row->getTarget();?></td>
+                    <td align="left"><a href="<?php echo URL?>petition/edit/<?php echo $row->getId()?>">Edit</a></td>
+                    <td align="left"><a href="<?php echo URL?>petition/delete/<?php echo $row->getId()?>">Delete</a></td>
                 </tr>
             <?php endforeach; ?>
         </table>

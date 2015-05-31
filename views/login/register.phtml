@@ -5,7 +5,7 @@
 			<p>Register</p>
 	</div>
 	<div class="login-content2">
-		<form action="<?php echo URL?>/login/register" method="post">
+		<form action="<?php echo URL?>login/register" method="post">
 			<label><span>Email:</span></label><input type="email" name="username" required pattern="[a-zA-Z1-9]+[@][a-zA-Z1-9]+[.][a-zA-Z1-9]+" title="Please, provide an e-mail" value=""/><br>
 			<label><span>Password:</span></label><input type="password" name="passwd" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Please, enter a digit, capital letter, normal letter and a length greater than 7" value=""/><br>
 			<label><span>Name:</span></label><input type="text" name="name" required pattern="[a-zA-Z ]{6}[a-zA-Z ]*" title="Please, use only letters, white spaces and be sure you have a length greater than 6" value=""/><br>
