@@ -125,13 +125,38 @@ class Petition extends Controller{
                     $model->setCategory($_POST['category']);
                     if($model->save()){
                         $_SESSION["success_message"] = "New petition successfully created!";
-                        header("Location:" . URL);
+                        header("Location:" . URL . 'petition/index');
                     }
                 }
             }
             else{
                 $this->view->render('petition/newpetition');
             }
+        }
+    }
+
+    public function delete($petid=''){
+        if (isset($_SESSION['logg_in']) && $_SESSION['logg_in']){
+            $petmodel=new \pet4web\PetitionsQuery();
+            $pet=$petmodel->filterById($petid)->findOneByUserid($_SESSION['userid']);
+
+            $sign=new \pet4web\SignaturesQuery();
+            $sign=$sign->filterByPetid($petid)->find()->getData();
+            foreach($sign as $row){
+                $row->delete();
+            };
+            $pet->delete();
+            if($pet->isDeleted()){
+                $_SESSION['success_message']="Petition successfully deleted!";
+            }
+            else{
+                $_SESSION['error_message']="Petition couldn't be deleted!";
+            }
+            header("Location:" . URL . 'myaccount/index');
+        }
+        else {
+            $_SESSION['error_message'] = "Please login to access your account!";
+            header("Location:" . URL . 'login/index');
         }
     }
 }

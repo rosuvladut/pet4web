@@ -24,7 +24,10 @@ class Login extends Controller{
                 header("Location:" . URL . 'index/');
             }
             else{
-                $this->view->ErrorMessage = "Wrong password!";
+                //$this->view->ErrorMessage = "Wrong password!";\
+                $_SESSION['error_message']="Wrong password!";
+                //sleep(3);
+                //header("Location:" . URL . 'login/index');
             }
 			$this->view->render('login/result');
 		}
@@ -33,9 +36,6 @@ class Login extends Controller{
 	function register(){
 		if(isset($_POST['username']) && isset($_POST['passwd'])&&isset($_POST['name'])&&isset($_POST['date'])&&isset($_POST['country'])) {
             $exists=new \pet4web\UsersQuery();
-            //print_r($exists->findByName())
-            //print_r($_POST['username']);
-            //die();
             if(empty($_POST['username'])||empty($_POST['passwd'])||empty($_POST['name']||empty($_POST['date'])||empty($_POST['country']))){
                 $_SESSION["error_message"] = "Please specify register details!";
                 header("Location:" . URL . 'login/register');
@@ -54,9 +54,9 @@ class Login extends Controller{
                     $model->setCountry($_POST['country']);
                     if ($model->save()) {
                         $_SESSION['logg_in'] = true;
-                        $_SESSION['userid']=$user[0]['Id'];
+                        $_SESSION['userid']=$model->getId();
                         $_SESSION["success_message"] = "Successfully registered.";
-                        header("Location:" . URL);
+                           header("Location:" . URL);
                     }
                 }
             }
@@ -64,9 +64,5 @@ class Login extends Controller{
 		else{
 			$this->view->render('login/register');
 		}
-	}
-
-	function delete(){
-		// delete action
 	}
 }
