@@ -1,20 +1,20 @@
 <?php require "views/header.phtml"; ?>
     <div class="content">
         <h1>Petition page</h1>
-        <form action="<?php echo URL?>petition/sign/<?php echo $this->data[0]['Id']?>" method="post">
+        <form action="<?php echo URL?>petition/sign/<?php echo $this->data->getId()?>" method="post">
             <button type="submit" name="signed" value="true" <?php if($this->signed==true) echo "disabled"?>>Sign Petition</button>
         </form>
         <hr>
-        <?php echo $this->data[0]['Title']?>
+        <?php echo $this->data->getTitle()?>
         <br>
-        <?php echo $this->data[0]['Category']?>
+        <?php echo $this->data->getCategory()?>
         <hr>
-        <?php echo $this->data[0]['Message']?>
+        <?php echo $this->data->getMessage()?>
         <br>
-        <?php echo $this->data[0]['Target']?>
-        <?php echo $this->data[0]['Signed']?>
+        <?php echo $this->data->getTarget()?>
+        <?php echo $this->data->getSigned()?>
         <br>
-        <?php echo $this->startedpet[0]->getName();?>
+        <?php echo $this->startedpet->getName();?>
         <hr>
         <?php require "views/petition/comments.phtml"; ?>
     </div>

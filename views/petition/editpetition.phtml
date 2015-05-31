@@ -1,0 +1,33 @@
+<?php require "views/header.phtml"; ?>
+<div>
+    Name:<?php echo $this->data->getTitle()?>
+    <br>
+    Category:<?php echo $this->data->getCategory()?>
+    <hr>
+    Message:<?php echo $this->data->getMessage()?>
+    <br>
+    Target:<?php echo $this->data->getTarget()?>
+    <br>
+    Signatures:<?php echo $this->data->getSigned()?>
+    <br>
+</div>
+    <div class="content2">
+        <h2>Edit petition</h2>
+        <form action="<?php echo URL?>petition/edit/<?php echo $this->data->getId()?>" method="post">
+            <label>Name:</label><input type="text" name="name" value=""/>
+            <br>
+            <label>Message:</label><input type="text" name="message" value=""/>
+            <br>
+            <label>Category:</label>
+            <select name="category">
+                <option value="1">First</option>
+                <option value="2">Second</option>
+                <option value="3">Third</option>
+            </select>
+            <br>
+            <label>Target:</label><input type="number" name="target" value=""/>
+            <br>
+            <button type="submit">Edit</button>
+        </form>
+    </div>
+<?php require "views/footer.phtml"; ?>

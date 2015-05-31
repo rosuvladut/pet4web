@@ -1,38 +1,42 @@
 <?php
 
-class Petition extends Controller{
-    function __construct(){
+class Petition extends Controller
+{
+    function __construct()
+    {
         parent::__construct();
     }
 
-    function index($page=''){
-        $model=new \pet4web\PetitionsQuery();
-        if(!empty($_GET['page']))
-            $page=$_GET['page'];
+    function index($page = '')
+    {
+        $model = new \pet4web\PetitionsQuery();
+        if (!empty($_GET['page']))
+            $page = $_GET['page'];
         else
-            $page=1;
-        $pages=$model->paginate($page,5);
+            $page = 1;
+        $pages = $model->paginate($page, 5);
         //var_dump($pages->getLinks());
         //die();
-        if($pages->haveToPaginate()) {
+        if ($pages->haveToPaginate()) {
             $links = $pages->getLinks();
             $this->view->pages = $links;
-            $this->view->pagesExist=true;
-        }
-        else{
-            $this->view->pagesExist=false;
+            $this->view->pagesExist = true;
+        } else {
+            $this->view->pagesExist = false;
         }
         //var_dump($pages->getResults()->getData());
-        $this->view->data=$pages->getResults()->getData();
+        $this->view->data = $pages->getResults()->getData();
         $this->view->render('petition/petitions');
     }
-    function sign($petid){
+
+    function sign($petid)
+    {
         //$userModel=new \pet4web\Signatures();
-        $sign=new \pet4web\Signatures();
-        $petdet=new \pet4web\PetitionsQuery();
-        $islogged=isset($_SESSION['logg_in'])?$_SESSION['logg_in']:NULL;
+        $sign = new \pet4web\Signatures();
+        $petdet = new \pet4web\PetitionsQuery();
+        $islogged = isset($_SESSION['logg_in']) ? $_SESSION['logg_in'] : NULL;
         //var_dump($islogged);
-        if(!empty($_POST)) {
+        if (!empty($_POST)) {
             if ($islogged) {
                 $petsigns = $petdet->findOneById($petid)->toArray();
                 $petdet = $petdet->findOneById($petid);
@@ -48,46 +52,46 @@ class Petition extends Controller{
                 $_SESSION['error_message'] = "Please login to sign for this petition!";
             }
         }
-        header("Location:" . URL . 'petition/petitiondetail/'.$petid);
+        header("Location:" . URL . 'petition/petitiondetail/' . $petid);
     }
 
-    function petitiondetail($petid){
-        $model=new \pet4web\PetitionsQuery();
-        $comm=new \pet4web\Comments();
-        $comms=new \pet4web\CommentsQuery();
-        $sign=new \pet4web\SignaturesQuery();
+    function petitiondetail($petid)
+    {
+        $model = new \pet4web\PetitionsQuery();
+        $comm = new \pet4web\Comments();
+        $comms = new \pet4web\CommentsQuery();
+        $sign = new \pet4web\SignaturesQuery();
         //var_dump($sign->find());
-        if(isset($_SESSION['logg_in'])&&!is_null($sign->joinUsers()->select('Users.id')->where('Users.id=?',$_SESSION['userid'])->findOne())&&
-            !is_null($sign->joinPetitions()->select('Petitions.id')->where('Petitions.id=?',$petid)->findOne())){
-                $this->view->signed=true;
+        if (isset($_SESSION['logg_in']) && !is_null($sign->joinUsers()->select('Users.id')->where('Users.id=?', $_SESSION['userid'])->findOne()) &&
+            !is_null($sign->joinPetitions()->select('Petitions.id')->where('Petitions.id=?', $petid)->findOne())
+        ) {
+            $this->view->signed = true;
+        } else {
+            $this->view->signed = false;
         }
-        else{
-            $this->view->signed=false;
-        }
-        if(isset($_POST['content'])) {
-            if(empty($_POST['content'])) {
+        if (isset($_POST['content'])) {
+            if (empty($_POST['content'])) {
                 $_SESSION['error_message'] = "Comment can't be empty!";
-            }
-            else {
-                if(!empty($_SESSION['logg_in'])||$_SESSION['logg_in']==true){
+            } else {
+                if (!empty($_SESSION['logg_in']) || $_SESSION['logg_in'] == true) {
                     $comm->setUserid($_SESSION['userid']);
                     $comm->setMessage($_POST['content']);
                     $comm->setPetid($petid);
-                    if($comm->save())
-                        $_SESSION['success_message']="Your comment has been posted!";
-                }
-                else {
-                    $_SESSION['error_message']="You must be logged in to post a new comment!";
+                    if ($comm->save())
+                        $_SESSION['success_message'] = "Your comment has been posted!";
+                } else {
+                    $_SESSION['error_message'] = "You must be logged in to post a new comment!";
                 }
             }
         }
-        $pet=$model->findById($petid)->toArray();
+        $pet = $model->findOneById($petid);
         //var_dump($comms->findByPetid($petid)->toArray()[0]['Userid']);
-        $this->view->data=$pet;
+
+        $this->view->data = $pet;
 
         //Petition comments
-        $comments=$comms->findByPetid($petid)->toArray();
-        if(!empty($comments)) {
+        $comments = $comms->findByPetid($petid)->toArray();
+        if (!empty($comments)) {
             $postedby = $comms->join('Users')->select('Users.name')->find()->getData();
             foreach ($comments as $row) {
                 $a[] = $row['Message'];
@@ -95,27 +99,27 @@ class Petition extends Controller{
             $commentsdata = array_combine($a, $postedby);
             $this->view->comms = $commentsdata;
         }
-        $usermodel=new \pet4web\UsersQuery();
-        $this->view->startedpet=$usermodel->findById($pet[0]['Userid'])->getData();
+        //search who started petition
+        $usermodel = new \pet4web\UsersQuery();
+        $this->view->startedpet = $usermodel->findOneById($pet->getUserid());
 
         $this->view->render('petition/petition');
     }
 
-    function newpetition(){
-        if(empty($_SESSION['logg_in'])){
+    function newpetition()
+    {
+        if (empty($_SESSION['logg_in'])) {
             $_SESSION["error_message"] = "Please login to create a new petition!";
             header("Location:" . URL . 'login/index');
-        }
-        else{
+        } else {
             //echo $_SESSION['userid'];
             //die();
-            if(isset($_POST['name'])&&isset($_POST['message'])&&isset($_POST['category'])&&isset($_POST['target'])) {
-                if (empty($_POST['name']) || empty($_POST['message']) || empty($_POST['category'])||empty($_POST['target'])) {
+            if (isset($_POST['name']) && isset($_POST['message']) && isset($_POST['category']) && isset($_POST['target'])) {
+                if (empty($_POST['name']) || empty($_POST['message']) || empty($_POST['category']) || empty($_POST['target'])) {
                     $_SESSION["error_message"] = "All forms are required!";
                     header("Location:" . URL . 'petition/newpetition');
-                }
-                else{
-                    $model=new \pet4web\Petitions();
+                } else {
+                    $model = new \pet4web\Petitions();
                     $model->setTitle($_POST['name']);
                     $model->setMessage($_POST['message']);
                     $model->setState('active');
@@ -123,40 +127,64 @@ class Petition extends Controller{
                     $model->setSigned(0);
                     $model->setUserid($_SESSION['userid']);
                     $model->setCategory($_POST['category']);
-                    if($model->save()){
+                    if ($model->save()) {
                         $_SESSION["success_message"] = "New petition successfully created!";
                         header("Location:" . URL . 'petition/index');
                     }
                 }
-            }
-            else{
+            } else {
                 $this->view->render('petition/newpetition');
             }
         }
     }
 
-    public function delete($petid=''){
-        if (isset($_SESSION['logg_in']) && $_SESSION['logg_in']){
-            $petmodel=new \pet4web\PetitionsQuery();
-            $pet=$petmodel->filterById($petid)->findOneByUserid($_SESSION['userid']);
-
-            $sign=new \pet4web\SignaturesQuery();
-            $sign=$sign->filterByPetid($petid)->find()->getData();
-            foreach($sign as $row){
+    public function delete($petid = '')
+    {
+        if (isset($_SESSION['logg_in']) && $_SESSION['logg_in']) {
+            $petmodel = new \pet4web\PetitionsQuery();
+            $pet = $petmodel->filterById($petid)->findOneByUserid($_SESSION['userid']);
+            //deletes signatures for selected petition
+            $sign = new \pet4web\SignaturesQuery();
+            $sign = $sign->filterByPetid($petid)->find()->getData();
+            foreach ($sign as $row) {
                 $row->delete();
             };
+
             $pet->delete();
-            if($pet->isDeleted()){
-                $_SESSION['success_message']="Petition successfully deleted!";
-            }
-            else{
-                $_SESSION['error_message']="Petition couldn't be deleted!";
+            if ($pet->isDeleted()) {
+                $_SESSION['success_message'] = "Petition successfully deleted!";
+            } else {
+                $_SESSION['error_message'] = "Petition couldn't be deleted!";
             }
             header("Location:" . URL . 'myaccount/index');
-        }
-        else {
+        } else {
             $_SESSION['error_message'] = "Please login to access your account!";
             header("Location:" . URL . 'login/index');
+        }
+    }
+
+    function edit($petid = '')
+    {
+        if (isset($_SESSION['logg_in']) && $_SESSION['logg_in']) {
+            $pet = new \pet4web\PetitionsQuery();
+            $pet = $pet->findOneById($petid);
+            $this->view->data = $pet;
+            if (isset($_POST['name'])&&!empty($_POST['name'])) {
+                $pet->setTitle($_POST['name']);
+            }
+            if (isset($_POST['message'])&&!empty($_POST['message'])) {
+                $pet->setMessage($_POST['message']);
+            }
+            if (isset($_POST['target'])&&!empty($_POST['target'])) {
+                $pet->setTarget($_POST['target']);
+            }
+            if (isset($_POST['category'])&&!empty($_POST['category'])) {
+                $pet->setCategory($_POST['category']);
+            }
+            if ($pet->save()) {
+                $_SESSION["success_message"] = "Petition successfully edited!";
+            }
+            $this->view->render('petition/editpetition');
         }
     }
 }
