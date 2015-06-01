@@ -44,7 +44,7 @@
  }
 
  .table-columns .columnName1{
- 	width: 40%;
+ 	width: 25%;
  }
 
  .table-columns .columnName{
@@ -57,7 +57,7 @@
 }
 
 .table-petdetails .petName{
-	width: 40%;
+	width: 25%;
 }
 
  .table-petdetails .petName a{
