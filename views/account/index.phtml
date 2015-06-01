@@ -1,46 +1,74 @@
 <?php require "views/header.phtml"; ?>
-    <div class="content">
-        <h1>My Account</h1>
-        <br>
-        Name:<?php echo $this->userdata->getName();?>
-        <br>Email:<?php echo $this->userdata->getEmail();?>
-        <br>Country:<?php echo $this->userdata->getCountry();?>
-        <br>Birthdate:<?php echo date_format($this->userdata->getBirth(),"d/m/Y");?>
-        <br><a href="<?php echo URL?>myaccount/update/">Change email/password</a>
-        <hr>
-        <table width="80%" align="center" cellpadding="0" cellspacing="1" border="0">
-            <thead>
-            <tr>
-                <th align="left"><b>Name</b></th>
-                <th align="left"><b>Category</b></th>
-                <th align="left"><b>Signed</b></th>
-                <th align="left"><b>Target</b></th>
-                <th align="left"><b>Actions</b></th>
-            </tr>
-            </thead>
-        </table>
-        <hr>
-        <table width="80%" align="center" cellpadding="0" cellspacing="1" border="0">
-            <?php
-            $pets=$this->data;
-            foreach($pets as $row):?>
+    <div class="login" id="myAccount">
+        <div class="login-content myAccount-content">
+            <p id="welcome">Welcome to your account!</p>
+            <div id="sub-welcome">
+                <p> You can see your account details and change account details.</p>
+                <p> If you have created petitions, you can view, edit and/or delete them.</p>
+            </div>    
+            <button id="my-acc" class="my-acc-button">My Account</button>
+            <button id="my-pet" class="my-acc-button">My Petitions</button>
+        </div>
+        <div class="login-content2 hidden" id="account-informations">  
+            <span>Name: </span><?php echo $this->userdata->getName();?>
+            <br><span>Email: </span><?php echo $this->userdata->getEmail();?>
+            <br><span>Country: </span><?php echo $this->userdata->getCountry();?>
+            <br><span>Birthdate: </span><?php echo date_format($this->userdata->getBirth(),"d/m/Y");?>
+            <br><a class="change-button" href="<?php echo URL?>myaccount/update/">Change account details</a>    
+        </div>
+        <div class="login-content">
+            
+        </div>
+        <div class="table-petitions my-petitions hidden">
+            <table class="table-columns" width="100%" align="center" cellpadding="0" cellspacing="1" border="0">
+                <thead>
                 <tr>
-                    <td align="left"><a href="<?php echo URL?>petition/petitiondetail/<?php echo $row->getId()?>"><?php echo $row->getTitle();?></a></td>
-                    <td align="left"><?php echo $row->getCategory();?></td>
-                    <td align="left"><?php echo $row->getSigned();?></td>
-                    <td align="left"><?php echo $row->getTarget();?></td>
-                    <td align="left"><a href="<?php echo URL?>petition/edit/<?php echo $row->getId()?>">Edit</a></td>
-                    <td align="left"><a href="<?php echo URL?>petition/delete/<?php echo $row->getId()?>">Delete</a></td>
+                    <th class="columnName1" align="left"><b>Name</b></th>
+                    <th class="columnName" align="left"><b>Category</b></th>
+                    <th class="columnName" align="left"><b>Signed</b></th>
+                    <th class="columnName" align="left"><b>Target</b></th>
+                    <th class="columnName" align="left"><b>Actions</b></th>
                 </tr>
-            <?php endforeach; ?>
-        </table>
-        <form action="<?php echo URL?>myaccount/index" method="get">
-            <?php
-            if($this->pagesExist):
-            foreach($this->pages as $page):?>
-                <input type="submit" name="page" value="<?php echo $page?>">
-            <?php endforeach; endif; ?>
+                </thead>
+            </table>
             <hr>
-            <a href="<?php echo URL?>">back to home page</a>
+           <table class="table-petdetails" width="100%" align="center" cellpadding="0" cellspacing="1" border="0">
+                <?php
+                $pets=$this->data;
+                foreach($pets as $row):?>
+                    <tr>
+                        <td class="petName" align="left"><a href="<?php echo URL?>petition/petitiondetail/<?php echo $row->getId()?>"><?php echo $row->getTitle();?></a></td>
+                        <td class="atr-cell" align="left"><?php echo $row->getCategory();?></td>
+                        <td class="atr-cell" align="left"><?php echo $row->getSigned();?></td>
+                        <td class="atr-cell" align="left"><?php echo $row->getTarget();?></td>
+                        <td class="atr-cell" align="left">    
+                            <a href="<?php echo URL?>petition/edit/<?php echo $row->getId()?>">Edit</a><span> | </span>
+                            <a href="<?php echo URL?>petition/delete/<?php echo $row->getId()?>">Delete</a>
+                            <div class="clear"></div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+            <form action="<?php echo URL?>myaccount/index" method="get">
+                <?php
+                if($this->pagesExist):
+                foreach($this->pages as $page):?>
+                    <input type="submit" name="page" value="<?php echo $page?>">
+                <?php endforeach; endif; ?>
+        </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // alert("haha");
+            $("#my-acc").on("click",function(){
+                $(".my-petitions").addClass("hidden");
+                $(".login-content2").removeClass("hidden");
+            });
+            $("#my-pet").on("click",function(){
+                $(".login-content2").addClass("hidden");
+                $(".my-petitions").removeClass("hidden");
+            });
+
+        });
+    </script>
 <?php require "views/footer.phtml"; ?>

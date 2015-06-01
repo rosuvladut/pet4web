@@ -1,0 +1,150 @@
+#myAccount{
+	padding-top: 28px;
+}
+
+#account-informations{
+	color: #FFF;
+	margin-bottom: 3%;
+	color: #191935;
+	font-size: 14px;
+	font-weight: 600;
+	background-color: rgba(255, 255, 255, 0.7);
+	border: 1px solid gray;
+}
+
+#account-informations span{
+	background-color: rgba(255, 255, 255, 0.7);
+	display: inline-block;
+	text-align: right;
+	padding: 2px 4px;
+	margin: 3px 0;
+	width: 72px;
+	margin-right: 5px;
+	border-radius: 3px; 
+	font-weight: 400;
+}
+
+ #account-informations .change-button{
+ 	display: inline-block;
+ 	margin-top: 10px;
+ 	text-decoration: none;
+ 	background-color: rgba(215, 63, 55, 0.8);
+ 	color: #FFF;
+ 	padding: 5px 5px;
+ 	border-radius: 5px;
+ 	/*margin-left: 75px;*/
+
+ 	/*float: right;*/
+
+ }
+
+ #account-informations .change-button:hover{
+ 	background-color: rgba(215, 63, 60, 1);
+ 	transition: all 0.3s;
+ }
+
+ .table-columns .columnName1{
+ 	width: 40%;
+ }
+
+ .table-columns .columnName{
+ 	width: 15%;
+ 	text-align: center;
+ }
+
+.table-petdetails{
+	padding: 15px 0;
+}
+
+.table-petdetails .petName{
+	width: 40%;
+}
+
+ .table-petdetails .petName a{
+ 	text-decoration: none;
+	background-color: rgba(215, 63, 60, 0.8);
+	color: #FFF;
+	padding: 5px 10px;
+	border-radius: 8px;
+
+ }
+
+ .table-petdetails .petName a:hover{
+ 	background-color: rgba(215, 63, 60, 1);
+ 	transition: all 0.3s;
+ }
+
+ .table-petdetails .atr-cell{
+ 	width: 15%;
+ 	text-align: center;
+ }
+
+ .table-petdetails .atr-cell a{
+ 	text-decoration: none;
+ 	color: rgba(215, 63, 44, 0.9);
+ 	font-weight: 600;
+ 	border-bottom: 1px solid rgba(215, 63, 44, 0.9);
+ }
+
+ .my-petitions{
+ 	border: 1px solid gray; 
+ 	background-color: rgba(255, 255, 255, 0.7);
+ }
+
+ .myAccount-content{
+ 	/*text-align: center;*/
+ }
+
+ .myAccount-content #welcome{
+ 	font-size: 22px;
+ }
+
+ .myAccount-content #sub-welcome{
+ 	margin: 0;
+ 	padding: 0;
+ 	background-color: rgba(255, 255, 255, 0.9);
+ 	padding: 15px 20px;
+ }
+
+ .myAccount-content #sub-welcome p{
+ 	color: #454562;	
+ 	margin: 0;
+ 	padding: 0;
+ 	font-family: "Open Sans";
+ 	font-weight: 400;
+ }
+
+ .myAccount-content .my-acc-button{
+ 	background-color: rgba(255,255,255, 1);
+ 	padding: 10px 20px;
+ 	border: 1px solid #FFF;
+ 	border-radius: 15px;
+ 	color: rgba(215, 63, 60, 1);
+ 	font-size: 16px;
+ 	/*text-transform: uppercase;*/
+ 	font-weight: 600;
+ 	font-family: "Open Sans";
+ 	width: 200px;
+ 	margin: 30px 0;
+ }
+
+ .myAccount-content .my-acc-button:hover{
+ 	background-color: #FFF7F7;
+ 	transition: all 0.5s;
+ }
+
+ .myAccount-content .my-acc-button:active{
+ 	background-color: rgba(215, 63, 60, 1);
+ 	color: rgba(255,255,255, 1);
+ 	border: 1px solid rgba(228, 50, 30, 1);
+ 	transition: all 0.04s;
+ }
+
+#my-acc{
+	margin-right: 10px;
+}
+
+ #my-pet{
+ 	margin-left: 10px;
+ }
+
