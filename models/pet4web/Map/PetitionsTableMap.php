@@ -59,7 +59,7 @@ class PetitionsTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 8;
+    const NUM_COLUMNS = 9;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class PetitionsTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 8;
+    const NUM_HYDRATE_COLUMNS = 9;
 
     /**
      * the column name for the id field
@@ -112,6 +112,11 @@ class PetitionsTableMap extends TableMap
     const COL_CATEGORY = 'petitions.category';
 
     /**
+     * the column name for the created field
+     */
+    const COL_CREATED = 'petitions.created';
+
+    /**
      * The default string format for model objects of the related table
      */
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -123,11 +128,11 @@ class PetitionsTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Title', 'Message', 'State', 'Target', 'Signed', 'Userid', 'Category', ),
-        self::TYPE_CAMELNAME     => array('id', 'title', 'message', 'state', 'target', 'signed', 'userid', 'category', ),
-        self::TYPE_COLNAME       => array(PetitionsTableMap::COL_ID, PetitionsTableMap::COL_TITLE, PetitionsTableMap::COL_MESSAGE, PetitionsTableMap::COL_STATE, PetitionsTableMap::COL_TARGET, PetitionsTableMap::COL_SIGNED, PetitionsTableMap::COL_USERID, PetitionsTableMap::COL_CATEGORY, ),
-        self::TYPE_FIELDNAME     => array('id', 'title', 'message', 'state', 'target', 'signed', 'userid', 'category', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
+        self::TYPE_PHPNAME       => array('Id', 'Title', 'Message', 'State', 'Target', 'Signed', 'Userid', 'Category', 'Created', ),
+        self::TYPE_CAMELNAME     => array('id', 'title', 'message', 'state', 'target', 'signed', 'userid', 'category', 'created', ),
+        self::TYPE_COLNAME       => array(PetitionsTableMap::COL_ID, PetitionsTableMap::COL_TITLE, PetitionsTableMap::COL_MESSAGE, PetitionsTableMap::COL_STATE, PetitionsTableMap::COL_TARGET, PetitionsTableMap::COL_SIGNED, PetitionsTableMap::COL_USERID, PetitionsTableMap::COL_CATEGORY, PetitionsTableMap::COL_CREATED, ),
+        self::TYPE_FIELDNAME     => array('id', 'title', 'message', 'state', 'target', 'signed', 'userid', 'category', 'created', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
     );
 
     /**
@@ -137,11 +142,11 @@ class PetitionsTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Title' => 1, 'Message' => 2, 'State' => 3, 'Target' => 4, 'Signed' => 5, 'Userid' => 6, 'Category' => 7, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'title' => 1, 'message' => 2, 'state' => 3, 'target' => 4, 'signed' => 5, 'userid' => 6, 'category' => 7, ),
-        self::TYPE_COLNAME       => array(PetitionsTableMap::COL_ID => 0, PetitionsTableMap::COL_TITLE => 1, PetitionsTableMap::COL_MESSAGE => 2, PetitionsTableMap::COL_STATE => 3, PetitionsTableMap::COL_TARGET => 4, PetitionsTableMap::COL_SIGNED => 5, PetitionsTableMap::COL_USERID => 6, PetitionsTableMap::COL_CATEGORY => 7, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'title' => 1, 'message' => 2, 'state' => 3, 'target' => 4, 'signed' => 5, 'userid' => 6, 'category' => 7, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Title' => 1, 'Message' => 2, 'State' => 3, 'Target' => 4, 'Signed' => 5, 'Userid' => 6, 'Category' => 7, 'Created' => 8, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'title' => 1, 'message' => 2, 'state' => 3, 'target' => 4, 'signed' => 5, 'userid' => 6, 'category' => 7, 'created' => 8, ),
+        self::TYPE_COLNAME       => array(PetitionsTableMap::COL_ID => 0, PetitionsTableMap::COL_TITLE => 1, PetitionsTableMap::COL_MESSAGE => 2, PetitionsTableMap::COL_STATE => 3, PetitionsTableMap::COL_TARGET => 4, PetitionsTableMap::COL_SIGNED => 5, PetitionsTableMap::COL_USERID => 6, PetitionsTableMap::COL_CATEGORY => 7, PetitionsTableMap::COL_CREATED => 8, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'title' => 1, 'message' => 2, 'state' => 3, 'target' => 4, 'signed' => 5, 'userid' => 6, 'category' => 7, 'created' => 8, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
     );
 
     /**
@@ -169,6 +174,7 @@ class PetitionsTableMap extends TableMap
         $this->addColumn('signed', 'Signed', 'INTEGER', true, null, null);
         $this->addForeignKey('userid', 'Userid', 'INTEGER', 'users', 'id', true, null, null);
         $this->addColumn('category', 'Category', 'VARCHAR', true, 50, null);
+        $this->addColumn('created', 'Created', 'DATE', true, null, null);
     } // initialize()
 
     /**
@@ -348,6 +354,7 @@ class PetitionsTableMap extends TableMap
             $criteria->addSelectColumn(PetitionsTableMap::COL_SIGNED);
             $criteria->addSelectColumn(PetitionsTableMap::COL_USERID);
             $criteria->addSelectColumn(PetitionsTableMap::COL_CATEGORY);
+            $criteria->addSelectColumn(PetitionsTableMap::COL_CREATED);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.title');
@@ -357,6 +364,7 @@ class PetitionsTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.signed');
             $criteria->addSelectColumn($alias . '.userid');
             $criteria->addSelectColumn($alias . '.category');
+            $criteria->addSelectColumn($alias . '.created');
         }
     }
 

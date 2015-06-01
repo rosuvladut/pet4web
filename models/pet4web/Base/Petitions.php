@@ -2,6 +2,7 @@
 
 namespace pet4web\Base;
 
+use \DateTime;
 use \Exception;
 use \PDO;
 use Propel\Runtime\Propel;
@@ -16,6 +17,7 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
+use Propel\Runtime\Util\PropelDateTime;
 use pet4web\Comments as ChildComments;
 use pet4web\CommentsQuery as ChildCommentsQuery;
 use pet4web\Petitions as ChildPetitions;
@@ -114,6 +116,12 @@ abstract class Petitions implements ActiveRecordInterface
      * @var        string
      */
     protected $category;
+
+    /**
+     * The value for the created field.
+     * @var        \DateTime
+     */
+    protected $created;
 
     /**
      * @var        ChildUsers
@@ -450,6 +458,26 @@ abstract class Petitions implements ActiveRecordInterface
     }
 
     /**
+     * Get the [optionally formatted] temporal [created] column value.
+     *
+     *
+     * @param      string $format The date/time format string (either date()-style or strftime()-style).
+     *                            If format is NULL, then the raw DateTime object will be returned.
+     *
+     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
+     *
+     * @throws PropelException - if unable to parse/validate the date/time value.
+     */
+    public function getCreated($format = NULL)
+    {
+        if ($format === null) {
+            return $this->created;
+        } else {
+            return $this->created instanceof \DateTime ? $this->created->format($format) : null;
+        }
+    }
+
+    /**
      * Set the value of [id] column.
      *
      * @param int $v new value
@@ -614,6 +642,26 @@ abstract class Petitions implements ActiveRecordInterface
     } // setCategory()
 
     /**
+     * Sets the value of [created] column to a normalized version of the date/time value specified.
+     *
+     * @param  mixed $v string, integer (timestamp), or \DateTime value.
+     *               Empty strings are treated as NULL.
+     * @return $this|\pet4web\Petitions The current object (for fluent API support)
+     */
+    public function setCreated($v)
+    {
+        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
+        if ($this->created !== null || $dt !== null) {
+            if ($this->created === null || $dt === null || $dt->format("Y-m-d") !== $this->created->format("Y-m-d")) {
+                $this->created = $dt === null ? null : clone $dt;
+                $this->modifiedColumns[PetitionsTableMap::COL_CREATED] = true;
+            }
+        } // if either are not null
+
+        return $this;
+    } // setCreated()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -672,6 +720,12 @@ abstract class Petitions implements ActiveRecordInterface
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : PetitionsTableMap::translateFieldName('Category', TableMap::TYPE_PHPNAME, $indexType)];
             $this->category = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : PetitionsTableMap::translateFieldName('Created', TableMap::TYPE_PHPNAME, $indexType)];
+            if ($col === '0000-00-00') {
+                $col = null;
+            }
+            $this->created = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -680,7 +734,7 @@ abstract class Petitions implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 8; // 8 = PetitionsTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 9; // 9 = PetitionsTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\pet4web\\Petitions'), 0, $e);
@@ -955,6 +1009,9 @@ abstract class Petitions implements ActiveRecordInterface
         if ($this->isColumnModified(PetitionsTableMap::COL_CATEGORY)) {
             $modifiedColumns[':p' . $index++]  = 'category';
         }
+        if ($this->isColumnModified(PetitionsTableMap::COL_CREATED)) {
+            $modifiedColumns[':p' . $index++]  = 'created';
+        }
 
         $sql = sprintf(
             'INSERT INTO petitions (%s) VALUES (%s)',
@@ -989,6 +1046,9 @@ abstract class Petitions implements ActiveRecordInterface
                         break;
                     case 'category':
                         $stmt->bindValue($identifier, $this->category, PDO::PARAM_STR);
+                        break;
+                    case 'created':
+                        $stmt->bindValue($identifier, $this->created ? $this->created->format("Y-m-d H:i:s") : null, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -1076,6 +1136,9 @@ abstract class Petitions implements ActiveRecordInterface
             case 7:
                 return $this->getCategory();
                 break;
+            case 8:
+                return $this->getCreated();
+                break;
             default:
                 return null;
                 break;
@@ -1114,7 +1177,16 @@ abstract class Petitions implements ActiveRecordInterface
             $keys[5] => $this->getSigned(),
             $keys[6] => $this->getUserid(),
             $keys[7] => $this->getCategory(),
+            $keys[8] => $this->getCreated(),
         );
+
+        $utc = new \DateTimeZone('utc');
+        if ($result[$keys[8]] instanceof \DateTime) {
+            // When changing timezone we don't want to change existing instances
+            $dateTime = clone $result[$keys[8]];
+            $result[$keys[8]] = $dateTime->setTimezone($utc)->format('Y-m-d\TH:i:s\Z');
+        }
+
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
             $result[$key] = $virtualColumn;
@@ -1224,6 +1296,9 @@ abstract class Petitions implements ActiveRecordInterface
             case 7:
                 $this->setCategory($value);
                 break;
+            case 8:
+                $this->setCreated($value);
+                break;
         } // switch()
 
         return $this;
@@ -1273,6 +1348,9 @@ abstract class Petitions implements ActiveRecordInterface
         }
         if (array_key_exists($keys[7], $arr)) {
             $this->setCategory($arr[$keys[7]]);
+        }
+        if (array_key_exists($keys[8], $arr)) {
+            $this->setCreated($arr[$keys[8]]);
         }
     }
 
@@ -1338,6 +1416,9 @@ abstract class Petitions implements ActiveRecordInterface
         }
         if ($this->isColumnModified(PetitionsTableMap::COL_CATEGORY)) {
             $criteria->add(PetitionsTableMap::COL_CATEGORY, $this->category);
+        }
+        if ($this->isColumnModified(PetitionsTableMap::COL_CREATED)) {
+            $criteria->add(PetitionsTableMap::COL_CREATED, $this->created);
         }
 
         return $criteria;
@@ -1432,6 +1513,7 @@ abstract class Petitions implements ActiveRecordInterface
         $copyObj->setSigned($this->getSigned());
         $copyObj->setUserid($this->getUserid());
         $copyObj->setCategory($this->getCategory());
+        $copyObj->setCreated($this->getCreated());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -2054,6 +2136,7 @@ abstract class Petitions implements ActiveRecordInterface
         $this->signed = null;
         $this->userid = null;
         $this->category = null;
+        $this->created = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();

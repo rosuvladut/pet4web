@@ -28,6 +28,7 @@ use pet4web\Map\PetitionsTableMap;
  * @method     ChildPetitionsQuery orderBySigned($order = Criteria::ASC) Order by the signed column
  * @method     ChildPetitionsQuery orderByUserid($order = Criteria::ASC) Order by the userid column
  * @method     ChildPetitionsQuery orderByCategory($order = Criteria::ASC) Order by the category column
+ * @method     ChildPetitionsQuery orderByCreated($order = Criteria::ASC) Order by the created column
  *
  * @method     ChildPetitionsQuery groupById() Group by the id column
  * @method     ChildPetitionsQuery groupByTitle() Group by the title column
@@ -37,6 +38,7 @@ use pet4web\Map\PetitionsTableMap;
  * @method     ChildPetitionsQuery groupBySigned() Group by the signed column
  * @method     ChildPetitionsQuery groupByUserid() Group by the userid column
  * @method     ChildPetitionsQuery groupByCategory() Group by the category column
+ * @method     ChildPetitionsQuery groupByCreated() Group by the created column
  *
  * @method     ChildPetitionsQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildPetitionsQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -66,7 +68,8 @@ use pet4web\Map\PetitionsTableMap;
  * @method     ChildPetitions findOneByTarget(int $target) Return the first ChildPetitions filtered by the target column
  * @method     ChildPetitions findOneBySigned(int $signed) Return the first ChildPetitions filtered by the signed column
  * @method     ChildPetitions findOneByUserid(int $userid) Return the first ChildPetitions filtered by the userid column
- * @method     ChildPetitions findOneByCategory(string $category) Return the first ChildPetitions filtered by the category column *
+ * @method     ChildPetitions findOneByCategory(string $category) Return the first ChildPetitions filtered by the category column
+ * @method     ChildPetitions findOneByCreated(string $created) Return the first ChildPetitions filtered by the created column *
 
  * @method     ChildPetitions requirePk($key, ConnectionInterface $con = null) Return the ChildPetitions by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPetitions requireOne(ConnectionInterface $con = null) Return the first ChildPetitions matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -79,6 +82,7 @@ use pet4web\Map\PetitionsTableMap;
  * @method     ChildPetitions requireOneBySigned(int $signed) Return the first ChildPetitions filtered by the signed column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPetitions requireOneByUserid(int $userid) Return the first ChildPetitions filtered by the userid column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildPetitions requireOneByCategory(string $category) Return the first ChildPetitions filtered by the category column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildPetitions requireOneByCreated(string $created) Return the first ChildPetitions filtered by the created column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildPetitions[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildPetitions objects based on current ModelCriteria
  * @method     ChildPetitions[]|ObjectCollection findById(int $id) Return ChildPetitions objects filtered by the id column
@@ -89,6 +93,7 @@ use pet4web\Map\PetitionsTableMap;
  * @method     ChildPetitions[]|ObjectCollection findBySigned(int $signed) Return ChildPetitions objects filtered by the signed column
  * @method     ChildPetitions[]|ObjectCollection findByUserid(int $userid) Return ChildPetitions objects filtered by the userid column
  * @method     ChildPetitions[]|ObjectCollection findByCategory(string $category) Return ChildPetitions objects filtered by the category column
+ * @method     ChildPetitions[]|ObjectCollection findByCreated(string $created) Return ChildPetitions objects filtered by the created column
  * @method     ChildPetitions[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -181,7 +186,7 @@ abstract class PetitionsQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, title, message, state, target, signed, userid, category FROM petitions WHERE id = :p0';
+        $sql = 'SELECT id, title, message, state, target, signed, userid, category, created FROM petitions WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -551,6 +556,49 @@ abstract class PetitionsQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(PetitionsTableMap::COL_CATEGORY, $category, $comparison);
+    }
+
+    /**
+     * Filter the query on the created column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByCreated('2011-03-14'); // WHERE created = '2011-03-14'
+     * $query->filterByCreated('now'); // WHERE created = '2011-03-14'
+     * $query->filterByCreated(array('max' => 'yesterday')); // WHERE created > '2011-03-13'
+     * </code>
+     *
+     * @param     mixed $created The value to use as filter.
+     *              Values can be integers (unix timestamps), DateTime objects, or strings.
+     *              Empty strings are treated as NULL.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildPetitionsQuery The current query, for fluid interface
+     */
+    public function filterByCreated($created = null, $comparison = null)
+    {
+        if (is_array($created)) {
+            $useMinMax = false;
+            if (isset($created['min'])) {
+                $this->addUsingAlias(PetitionsTableMap::COL_CREATED, $created['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($created['max'])) {
+                $this->addUsingAlias(PetitionsTableMap::COL_CREATED, $created['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(PetitionsTableMap::COL_CREATED, $created, $comparison);
     }
 
     /**

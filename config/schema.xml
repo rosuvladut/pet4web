@@ -32,11 +32,11 @@
         <column name="signed" type="integer" required="true"/>
         <column name="userid" type="integer" required="true"/>
         <column name="category" type="varchar" size="50" required="true"/>
+        <column name="created" type="date" required="true"/>
         <foreign-key foreignTable="users">
             <reference local="userid" foreign="id"/>
         </foreign-key>
     </table>
-
 
     <table name="comments" phpName="Comments">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>

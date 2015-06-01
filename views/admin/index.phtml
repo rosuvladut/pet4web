@@ -14,7 +14,6 @@
                 <th align="left"><b>Name</b></th>
                 <th align="left"><b>Category</b></th>
                 <th align="left"><b>Signed</b></th>
-                <th align="left"><b>Created</b></th>
                 <th align="left"><b>Target</b></th>
                 <th align="left"><b>Actions</b></th>
             </tr>
@@ -30,7 +29,6 @@
                     <td align="left"><?php echo $row->getCategory();?></td>
                     <td align="left"><?php echo $row->getSigned();?></td>
                     <td align="left"><?php echo $row->getTarget();?></td>
-                    <td class="atrCell" align="left"><span class="att-target"><?php echo date_format($row->getCreated(), 'Y-m-d');?></span></td>
                     <td align="left"><a href="<?php echo URL?>petition/edit/<?php echo $row->getId()?>">Edit</a></td>
                     <td align="left"><a href="<?php echo URL?>petition/delete/<?php echo $row->getId()?>">Delete</a></td>
                 </tr>
@@ -39,9 +37,9 @@
         <form action="<?php echo URL?>myaccount/index" method="get">
             <?php
             if($this->pagesExist):
-            foreach($this->pages as $page):?>
-                <input type="submit" name="page" value="<?php echo $page?>">
-            <?php endforeach; endif; ?>
+                foreach($this->pages as $page):?>
+                    <input type="submit" name="page" value="<?php echo $page?>">
+                <?php endforeach; endif; ?>
             <hr>
             <a href="<?php echo URL?>">back to home page</a>
     </div>

@@ -14,7 +14,7 @@ class Petition extends Controller
             $page = $_GET['page'];
         else
             $page = 1;
-        $pages = $model->paginate($page, 5);
+        $pages = $model->paginate($page, 10);
         //var_dump($pages->getLinks());
         //die();
         if ($pages->haveToPaginate()) {
@@ -24,7 +24,9 @@ class Petition extends Controller
         } else {
             $this->view->pagesExist = false;
         }
-        //var_dump($pages->getResults()->getData());
+        //$nrpages=ceil($pages->getNbResults()/1);
+        //var_dump($nrpages);
+        //die();
         $this->view->data = $pages->getResults()->getData();
         $this->view->render('petition/petitions');
     }

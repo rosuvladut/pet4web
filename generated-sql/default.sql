@@ -37,6 +37,7 @@ CREATE TABLE `petitions`
     `signed` INTEGER NOT NULL,
     `userid` INTEGER NOT NULL,
     `category` VARCHAR(50) NOT NULL,
+    `created` DATE NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `petitions_fi_2596c7` (`userid`),
     CONSTRAINT `petitions_fk_2596c7`

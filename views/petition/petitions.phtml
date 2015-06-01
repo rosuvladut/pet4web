@@ -13,6 +13,7 @@
                 <th class="column-name" align="left"><b class="cat_but">Category</b></th>
                 <th class="column-name" align="left"><b class="signed-but">Signed</b></th>
                 <th class="column-name" align="left"><b class="target-but">Target</b></th>
+                <th class="column-name" align="left"><b class="target-but">Started on</b></th>
             </tr>
             </thead>
         </table>
@@ -26,6 +27,7 @@
                     <td class="atrCell " align="left"><span class="att-cat" ><?php echo $row->getCategory();?></span></td>
                     <td class="atrCell" align="left"><span class="att-sig"><?php echo $row->getSigned();?></span></td>
                     <td class="atrCell" align="left"><span class="att-target"><?php echo $row->getTarget();?></span></td>
+                    <td class="atrCell" align="left"><span class="att-target"><?php echo date_format($row->getCreated(), 'Y-m-d');?></span></td>
                 </tr>
             <?php endforeach; ?>
         </table>
