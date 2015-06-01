@@ -4,6 +4,18 @@
         <p>Petitions page</p>
     </div>  
     <!-- <h1>Petitions page</h1> -->
+    <select id="foo">
+        <option value="">Sort by:</option>
+        <option value="<?php echo URL?>petition/index&sortby=name">Name</option>
+    </select>
+
+    <script>
+        document.getElementById("foo").onchange = function() {
+            if (this.selectedIndex!==0) {
+                window.location.href = this.value;
+            }
+        };
+    </script>
     <div class="table-petitions">
         <!-- <hr> -->
         <table class="table-columns" width="100%" align="center" cellpadding="0" cellspacing="1" border="0">

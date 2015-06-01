@@ -1,12 +1,6 @@
 <?php require "views/header.phtml"; ?>
     <div class="content">
-        <h1>My Account</h1>
-        <br>
-        Name:<?php echo $this->userdata->getName();?>
-        <br>Email:<?php echo $this->userdata->getEmail();?>
-        <br>Country:<?php echo $this->userdata->getCountry();?>
-        <br>Birthdate:<?php echo date_format($this->userdata->getBirth(),"d/m/Y");?>
-        <br><a href="<?php echo URL?>myaccount/update/">Change email/password</a>
+        <h1>Admin Panel</h1>
         <hr>
         <table width="80%" align="center" cellpadding="0" cellspacing="1" border="0">
             <thead>
@@ -22,7 +16,7 @@
         <hr>
         <table width="80%" align="center" cellpadding="0" cellspacing="1" border="0">
             <?php
-            $pets=$this->data;
+            $pets=$this->petdata;
             foreach($pets as $row):?>
                 <tr>
                     <td align="left"><a href="<?php echo URL?>petition/petitiondetail/<?php echo $row->getId()?>"><?php echo $row->getTitle();?></a></td>
@@ -34,13 +28,48 @@
                 </tr>
             <?php endforeach; ?>
         </table>
-        <form action="<?php echo URL?>myaccount/index" method="get">
+        <form action="<?php echo URL?>admin/index" method="get">
             <?php
-            if($this->pagesExist):
-                foreach($this->pages as $page):?>
+            if($this->petpagesExist):
+                foreach($this->petpages as $page):?>
                     <input type="submit" name="page" value="<?php echo $page?>">
                 <?php endforeach; endif; ?>
             <hr>
-            <a href="<?php echo URL?>">back to home page</a>
+            <table width="80%" align="center" cellpadding="0" cellspacing="1" border="0">
+                <thead>
+                <tr>
+                    <th align="left"><b>Name</b></th>
+                    <th align="left"><b>Email</b></th>
+                    <th align="left"><b>Type</b></th>
+                    <th align="left"><b>Birthdate</b></th>
+                    <th align="left"><b>Country</b></th>
+                    <th align="left"><b>Actions</b></th>
+                </tr>
+                </thead>
+            </table>
+            <hr>
+
+
+            <table width="80%" align="center" cellpadding="0" cellspacing="1" border="0">
+                <?php
+                $users=$this->userdata;
+                foreach($users as $row):?>
+                    <tr>
+                        <td align="left"><?php echo $row->getName();?></td>
+                        <td align="left"><?php echo $row->getEmail();?></td>
+                        <td align="left"><?php echo $row->getType();?></td>
+                        <td align="left"><?php echo $row->getCountry();?></td>
+                        <td align="left"><?php echo date_format($row->getBirth(), 'Y-m-d');?></td>
+<!--                        <td align="left"><a href="--><?php //echo URL?><!--petition/edit/--><?php //echo $row->getId()?><!--">Edit</a></td>-->
+<!--                        <td align="left"><a href="--><?php //echo URL?><!--petition/delete/--><?php //echo $row->getId()?><!--">Delete</a></td>-->
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+            <form action="<?php echo URL?>admin/index" method="get">
+                <?php
+                if($this->userpagesExist):
+                    foreach($this->userpages as $page):?>
+                        <input type="submit" name="page2" value="<?php echo $page?>">
+                    <?php endforeach; endif; ?>
     </div>
 <?php require "views/footer.phtml"; ?>

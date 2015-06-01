@@ -9,14 +9,22 @@ class Petition extends Controller
 
     function index($page = '')
     {
+//        var_dump($_GET);
+//        die();
         $model = new \pet4web\PetitionsQuery();
         if (!empty($_GET['page']))
             $page = $_GET['page'];
         else
             $page = 1;
-        $pages = $model->paginate($page, 10);
-        //var_dump($pages->getLinks());
-        //die();
+        $pages = $model->orderByCreated('desc')->paginate($page, 10);
+        if(isset($_GET['sortby'])) {
+            if ($_GET['sortby'] == "name") {
+                $pages = $model->orderByTitle()->paginate($page, 10);
+            }
+            if ($_GET['sortby'] == "signed") {
+                $pages = $model->orderBySigned('desc')->paginate($page, 10);
+            }
+        }
         if ($pages->haveToPaginate()) {
             $links = $pages->getLinks();
             $this->view->pages = $links;
@@ -145,6 +153,7 @@ class Petition extends Controller
     {
         if (isset($_SESSION['logg_in']) && $_SESSION['logg_in']) {
             $petmodel = new \pet4web\PetitionsQuery();
+
             $pet = $petmodel->filterById($petid)->findOneByUserid($_SESSION['userid']);
             //deletes signatures for selected petition
             $sign = new \pet4web\SignaturesQuery();
@@ -170,7 +179,7 @@ class Petition extends Controller
     {
         if (isset($_SESSION['logg_in']) && $_SESSION['logg_in']) {
             $pet = new \pet4web\PetitionsQuery();
-            $pet = $pet->findOneById($petid);
+            $pet = $pet->filterById($petid)->findOneByUserid($_SESSION['userid']);
             $this->view->data = $pet;
             if (isset($_POST['name'])&&!empty($_POST['name'])) {
                 $pet->setTitle($_POST['name']);
