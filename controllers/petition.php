@@ -129,6 +129,7 @@ class Petition extends Controller
                     $model->setSigned(0);
                     $model->setUserid($_SESSION['userid']);
                     $model->setCategory($_POST['category']);
+                    $model->setCreated(time());
                     if ($model->save()) {
                         $_SESSION["success_message"] = "New petition successfully created!";
                         header("Location:" . URL . 'petition/index');

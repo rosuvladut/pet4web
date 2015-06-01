@@ -6,7 +6,7 @@
         <!-- <h2>Create new petition</h2> -->
         <div class="login-content2">
             <form action="<?php echo URL?>/petition/newpetition" method="post">
-                <label><span>Name:</span></label><input type="text" name="name" required pattern="[a-zA-Z ]{6}[a-zA-Z ]*" title="Please, use only letters, white spaces and be sure you have a length greater than 6" value=""/>
+                <label><span>Name:</span></label><input type="text" name="name" title="Please, use only letters, numbers, white spaces and be sure you have a length greater than 6" value=""/>
                 <br>
                 <label><span>Message:</span></label><input type="text" required pattern="[!@#$%^&*()_-+=:;<,.>/1-9a-zA-Z ]{10}[!@#$%^&*()_-+=:;<,.>/1-9a-zA-Z ]*" title="Please, use only letters, white spaces, digits and be sure you have a length greater than 10" name="message" value=""/>
                 <br>
