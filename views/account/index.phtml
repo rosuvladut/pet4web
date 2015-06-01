@@ -9,7 +9,7 @@
             <button id="my-acc" class="my-acc-button">My Account</button>
             <button id="my-pet" class="my-acc-button">My Petitions</button>
         </div>
-        <div class="login-content2" id="account-informations">  
+        <div class="login-content2 hidden" id="account-informations">  
             <span>Name: </span><?php echo $this->userdata->getName();?>
             <br><span>Email: </span><?php echo $this->userdata->getEmail();?>
             <br><span>Country: </span><?php echo $this->userdata->getCountry();?>
@@ -19,7 +19,7 @@
         <div class="login-content">
             
         </div>
-        <div class="table-petitions my-petitions">
+        <div class="table-petitions my-petitions hidden">
             <table class="table-columns" width="100%" align="center" cellpadding="0" cellspacing="1" border="0">
                 <thead>
                 <tr>
