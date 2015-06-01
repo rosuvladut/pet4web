@@ -1,33 +1,34 @@
 <?php require "views/header.phtml"; ?>
-<div>
-    Name:<?php echo $this->data->getTitle()?>
-    <br>
-    Category:<?php echo $this->data->getCategory()?>
-    <hr>
-    Message:<?php echo $this->data->getMessage()?>
-    <br>
-    Target:<?php echo $this->data->getTarget()?>
-    <br>
-    Signatures:<?php echo $this->data->getSigned()?>
-    <br>
+<div class="login">
+    <div class="login-content2 edit-pet-details" id="petition-informations">
+        <span>Name: </span><?php echo $this->data->getTitle()?><br>
+        <span>Category: </span><?php echo $this->data->getCategory()?><br>
+        <span>Message: </span><?php echo $this->data->getMessage()?><br>
+        <span>Target: </span><?php echo $this->data->getTarget()?><br>
+        <span>Signatures: </span><?php echo $this->data->getSigned()?><br>
+    </div>    
 </div>
     <div class="content2">
-        <h2>Edit petition</h2>
-        <form action="<?php echo URL?>petition/edit/<?php echo $this->data->getId()?>" method="post">
-            <label>Name:</label><input type="text" name="name" value=""/>
+        <form id="form-update" action="<?php echo URL?>petition/edit/<?php echo $this->data->getId()?>" method="post">
+            <p class="form-title">Edit petition</p>
+            <label><span class="update-fields" id ="field-pet">Name: </span></label><input type="text" name="name" value=""/>
             <br>
-            <label>Message:</label><input type="text" name="message" value=""/>
+            <label><span class="update-fields" id ="field-pet">Message: </span></label><input type="text" name="message" value=""/>
             <br>
-            <label>Category:</label>
+            <label><span class="update-fields" id ="field-pet">Category: </span></label>
             <select name="category">
-                <option value="1">First</option>
-                <option value="2">Second</option>
-                <option value="3">Third</option>
-            </select>
+                    <option value="Human Rights">Human Rights</option>
+                    <option value="Environment">Environment</option>
+                    <option value="Faith and Religion">Faith and Religion</option>
+                    <option value="Politics">Politics</option>
+                    <option value="Heallth">Health</option>
+                    <option value="Education">Education</option>
+                    <option value="Media and Culture">Media and Culture</option>
+                </select>
             <br>
-            <label>Target:</label><input type="number" name="target" value=""/>
+            <label><span class="update-fields" id ="field-pet">Target: <span></label><input type="number" name="target" value=""/>
             <br>
-            <button type="submit">Edit</button>
+            <button class="submit-update" type="submit">Edit</button>
         </form>
     </div>
 <?php require "views/footer.phtml"; ?>    

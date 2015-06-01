@@ -63,4 +63,31 @@
 
 .hidden{
 	display: none;
+}
+
+#petition-informations{
+	color: #FFF;
+	margin-bottom: 3%;
+	color: #191935;
+	font-size: 14px;
+	font-weight: 600;
+	background-color: rgba(255, 255, 255, 0.7);
+	border: 1px solid gray;
+}
+
+.login #petition-informations span{
+	background-color: rgba(255, 255, 255, 0.7);
+	display: inline-block;
+	text-align: right;
+	padding: 2px 4px;
+	margin: 3px 0;
+	width: 82px;
+	margin-right: 5px;
+	border-radius: 3px; 
+	font-weight: 400;
 }	
+
+#form-update #field-pet{
+	display: inline-block;
+	width: 80px;
+}
