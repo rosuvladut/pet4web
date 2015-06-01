@@ -27,6 +27,7 @@
                     <th class="columnName" align="left"><b>Category</b></th>
                     <th class="columnName" align="left"><b>Signed</b></th>
                     <th class="columnName" align="left"><b>Target</b></th>
+                    <th class="columnName" align="left"><b>Created on</b></th>
                     <th class="columnName" align="left"><b>Actions</b></th>
                 </tr>
                 </thead>
@@ -41,6 +42,7 @@
                         <td class="atr-cell" align="left"><?php echo $row->getCategory();?></td>
                         <td class="atr-cell" align="left"><?php echo $row->getSigned();?></td>
                         <td class="atr-cell" align="left"><?php echo $row->getTarget();?></td>
+                        <td class="atr-cell" align="left"><?php echo date_format($row->getCreated(), 'Y-m-d');?></td>
                         <td class="atr-cell" align="left">    
                             <a href="<?php echo URL?>petition/edit/<?php echo $row->getId()?>">Edit</a><span> | </span>
                             <a href="<?php echo URL?>petition/delete/<?php echo $row->getId()?>">Delete</a>
