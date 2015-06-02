@@ -25,7 +25,7 @@ class Search extends Controller{
 				$this->view->render('search/result');
 			} else {
 				$_SESSION['error_message']="No results found!";
-				header("Location: " . URL . "search");
+				header("Location: " . URL);
 			}
 
 		}
