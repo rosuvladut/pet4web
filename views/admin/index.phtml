@@ -2,6 +2,26 @@
     <div class="content">
         <h1>Admin Panel</h1>
         <hr>
+        <select id="foo">
+            <option value="">Sort by:</option>
+            <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=byname">Name</option>
+            <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bycatasc">Categories - Ascending</option>
+            <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bycatdesc">Categories - Descending</option>
+            <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bysignasc">Signatures - Ascending</option>
+            <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bysigndesc">Signatures - Descending</option>
+            <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bytargetdesc">Target - Descending</option>
+            <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bytargetasc">Target - Ascending</option>
+            <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bydateasc">Started date - Ascending</option>
+            <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bydatedesc">Started date - Descending</option>
+        </select>
+
+        <script>
+            document.getElementById("foo").onclick = function() {
+                if (this.selectedIndex!==0) {
+                    window.location.href = this.value;
+                }
+            };
+        </script>
         <table width="80%" align="center" cellpadding="0" cellspacing="1" border="0">
             <thead>
             <tr>
@@ -9,6 +29,7 @@
                 <th align="left"><b>Category</b></th>
                 <th align="left"><b>Signed</b></th>
                 <th align="left"><b>Target</b></th>
+                <th align="left"><b>Created on</b></th>
                 <th align="left"><b>Actions</b></th>
             </tr>
             </thead>
@@ -23,18 +44,41 @@
                     <td align="left"><?php echo $row->getCategory();?></td>
                     <td align="left"><?php echo $row->getSigned();?></td>
                     <td align="left"><?php echo $row->getTarget();?></td>
+                    <td left"><span class="att-target"><?php echo date_format($row->getCreated(), 'Y-m-d');?></span></td>
                     <td align="left"><a href="<?php echo URL?>petition/edit/<?php echo $row->getId()?>">Edit</a></td>
                     <td align="left"><a href="<?php echo URL?>petition/delete/<?php echo $row->getId()?>">Delete</a></td>
                 </tr>
             <?php endforeach; ?>
         </table>
-        <form action="<?php echo URL?>admin/index" method="get">
+        <form action="<?php echo URL?>admin" method="post">
+            <select name="exportorder">
+                <option value="">Sort by:</option>
+                <option value="byname">Name</option>
+                <option value="bycatasc">Categories - Ascending</option>
+                <option value="bycatdesc">Categories - Descending</option>
+                <option value="bysignasc">Signatures - Ascending</option>
+                <option value="bysigndesc">Signatures - Descending</option>
+                <option value="bytargetdesc">Target - Descending</option>
+                <option value="bytargetasc">Target - Ascending</option>
+                <option value="bydateasc">Started date - Ascending</option>
+                <option value="bydatedesc">Started date - Descending</option>
+            </select>
+            <select name="export">
+                <option value="csv">CSV</option>
+                <option value="pdf">PDF</option>
+                <option value="html">HTML</option>
+            </select>
+            <button class="create-button" type="submit" name="exported" value="true">Export</button>
+        </form>
+        <form action="" method="get">
             <?php
             if($this->petpagesExist):
                 foreach($this->petpages as $page):?>
                     <input type="submit" name="page" value="<?php echo $page?>">
                 <?php endforeach; endif; ?>
             <hr>
+
+<!-- USERS -->
             <table width="80%" align="center" cellpadding="0" cellspacing="1" border="0">
                 <thead>
                 <tr>
