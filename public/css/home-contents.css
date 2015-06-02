@@ -65,7 +65,14 @@
 }
 
 @media screen and (min-width: 1580px){
-
+	body{
+		background-image: url("../img/teamwork-resp.png");
+		/*background-size: cover;*/
+		/*background-size:contain;*/
+		/*height: 90%;*/
+		/*background-repeat: no-repeat;*/
+	}
+	
 	.home-content{
 		width: 1180px;
 		margin: 30px auto;
@@ -83,7 +90,7 @@
 		font-weight: 400;
 		font-size: 18px;
 		letter-spacing: 0.3px;
-		background-color: rgba(255, 255, 255, 0.6);
+		background-color: rgba(255, 255, 255, 0.7);
 		padding: 20px 20px;
 		border: 1px solid gray;
 		margin-bottom: 30px;

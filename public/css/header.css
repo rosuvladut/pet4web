@@ -123,8 +123,11 @@ body {
 
 @media screen and (max-width: 740px) {
 	body{
-		background-size: auto;
-		background-repeat: no-repeat;
+		background-image: url("../img/teamwork-resp.png");
+		/*background-size: cover;*/
+		/*background-size:contain;*/
+		/*height: 90%;*/
+		/*background-repeat: no-repeat;*/
 	}
 
 	.header .header-content {
