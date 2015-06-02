@@ -14,7 +14,10 @@
             <br><span>Email: </span><?php echo $this->userdata->getEmail();?>
             <br><span>Country: </span><?php echo $this->userdata->getCountry();?>
             <br><span>Birthdate: </span><?php echo date_format($this->userdata->getBirth(),"d/m/Y");?>
-            <br><a class="change-button" href="<?php echo URL?>myaccount/update/">Change account details</a>    
+            <br><a class="change-button" href="<?php echo URL?>myaccount/update/">Change account details</a>
+            <?php if($this->userdata->getType()=="admin"): ?>
+                <br><a class="change-button" href="<?php echo URL?>admin">Admin Panel</a>
+            <?php endif; ?>
         </div>
         <div class="login-content">
             
