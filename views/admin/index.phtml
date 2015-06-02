@@ -24,18 +24,11 @@
             </select>
             <button id="button-export" class="create-button" type="submit" name="exported" value="true">Export</button>
         </form>
-        <form action="" method="get">
-            <?php
-            if($this->petpagesExist):
-                foreach($this->petpages as $page):?>
-                    <input type="submit" name="page" value="<?php echo $page?>">
-                <?php endforeach; endif; ?>
-        </form>
         <button id="adm-all-pet">See all petitions</button>
         <button id="adm-all-usr">See all users</button>
         <br>
         <div id="admin-all-petitions" class="adm-all-pet hidden">
-            <!-- <select id="foo">
+            <select id="foo">
                 <option value="">Sort by:</option>
                 <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=byname">Name</option>
                 <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bycatasc">Categories - Ascending</option>
@@ -47,7 +40,7 @@
                 <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bydateasc">Started date - Ascending</option>
                 <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bydatedesc">Started date - Descending</option>
             </select>
-            <div class="clear"></div> -->
+            <div class="clear"></div>
             <script>
                 document.getElementById("foo").onclick = function() {
                     if (this.selectedIndex!==0) {
@@ -87,6 +80,13 @@
                     <?php endforeach; ?>
                 </table>
             </div>
+            <form action="" method="get">
+                <?php
+                if($this->petpagesExist):
+                    foreach($this->petpages as $page):?>
+                        <input type="submit" name="page" value="<?php echo $page?>">
+                    <?php endforeach; endif; ?>
+            </form>
         </div>
 <!-- USERS -->
         <div class="table-petitions my-petitions adm-all-usr hidden">

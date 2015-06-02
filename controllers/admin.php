@@ -86,7 +86,59 @@ class Admin extends Controller{
                     die();
                 }
                 else if(isset($_POST['exportorder'])&&$_POST['export']=='pdf') {
-                    echo "ok";
+                    try
+                    {
+                        switch($_POST['exportorder']){
+                            case "byname":
+                                $html=file_get_contents(URL."export/index?sort=byname");
+                                break;
+                            case "bycatasc":
+                                $html=file_get_contents(URL."export/index?sort=bycatasc");
+                                break;
+                            case "bycatdesc":
+                                $html=file_get_contents(URL."export/index?sort=bycatdesc");
+                                break;
+                            case "bysignasc":
+                                $html=file_get_contents(URL."export/index?sort=bysignasc");
+                                break;
+                            case "bysigndesc":
+                                $html=file_get_contents(URL."export/index?sort=bysigndesc");
+                                break;
+                            case "bytargetdesc":
+                                $html=file_get_contents(URL."export/index?sort=bytargetdesc");
+                                break;
+                            case "bytargetasc":
+                                $html=file_get_contents(URL."export/index?sort=bytargetasc");
+                                break;
+                            case "bydateasc":
+                                $html=file_get_contents(URL."export/index?sort=bydateasc");
+                                break;
+                            case "bydatedesc":
+                                $html=file_get_contents(URL."export/index?sort=bydatedesc");
+                                break;
+                            default:
+                                $html=file_get_contents(URL."export/index?sort=byname");
+                        }
+//
+                        // create an API client instance
+                        $client = new Pdfcrowd("visy199", "acb72a42ef66c540da6a41a2e3eaa3ba");
+
+                        // convert a web page and store the generated PDF into a $pdf variable
+                        $pdf = $client->convertHtml($html);
+
+                        // set HTTP response headers
+                        header("Content-Type: application/pdf");
+                        header("Cache-Control: max-age=0");
+                        header("Accept-Ranges: none");
+                        header("Content-Disposition: attachment; filename=\"petitions.pdf\"");
+
+                        // send the generated PDF
+                        echo $pdf;
+                    }
+                    catch(PdfcrowdException $why)
+                    {
+                        echo "Pdfcrowd Error: " . $why;
+                    }
                     die();
                 }
                 else{
@@ -119,6 +171,8 @@ class Admin extends Controller{
                         case "bydatedesc":
                             $pets = $model->orderByCreated('desc')->find()->getData();
                             break;
+                        default:
+                            $pets=$model->orderByCreated('desc')->find()->getData();
                     }
                     $filename = 'petitions.phtml';
                     header('Content-disposition: attachment; filename=' . $filename);
