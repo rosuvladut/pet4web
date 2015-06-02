@@ -2,6 +2,16 @@
 	padding-top: 2%;	
 }
 
+#foo{
+	float: right;
+	margin-top: -35px;
+	border: 1px solid #FFF;
+	padding: 2px 0;
+	border-radius: 5px;
+	font-size: 14px;
+	color: rgba(0, 32, 43, 0.9);
+}
+
 .table-petitions{
 	background-color: rgba(255, 255, 255, 0.7);
 	padding: 30px 30px;
