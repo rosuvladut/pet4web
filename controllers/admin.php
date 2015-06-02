@@ -31,7 +31,7 @@ class Admin extends Controller{
 //                var_dump($_POST);
 //                die();
                 //print_r($petmodel->orderByTitle()->find()->toCSV());
-                if(isset($_POST['exportorder'])) {
+                if(isset($_POST['exportorder'])&&$_POST['export']=='csv') {
                     switch($_POST['exportorder']){
                         case "byname":
                             header('Content-Type: text/csv; charset=utf-8');
@@ -83,8 +83,50 @@ class Admin extends Controller{
                             header('Content-Disposition: attachment; filename=petitiondata.csv');
                             print_r($petmodel->orderByCreated('desc')->find()->toCSV());
                     }
+                    die();
                 }
-                die();
+                else if(isset($_POST['exportorder'])&&$_POST['export']=='pdf') {
+                    echo "ok";
+                    die();
+                }
+                else{
+                    $model=new \pet4web\PetitionsQuery();
+                    switch($_POST['exportorder']){
+                        case "byname":
+                            $pets=$model->orderByTitle()->find()->getData();
+                            break;
+                        case "bycatasc":
+                            $pets = $model->orderByCategory()->find()->getData();
+                            break;
+                        case "bycatdesc":
+                            $pets = $model->orderByCategory('desc')->find()->getData();
+                            break;
+                        case "bysignasc":
+                            $pets = $model->orderBySigned()->find()->getData();
+                            break;
+                        case "bysigndesc":
+                            $pets = $model->orderBySigned('desc')->find()->getData();
+                            break;
+                        case "bytargetdesc":
+                            $pets = $model->orderByTarget('desc')->find()->getData();
+                            break;
+                        case "bytargetasc":
+                            $pets = $model->orderByTarget()->find()->getData();
+                            break;
+                        case "bydateasc":
+                            $pets = $model->orderByCreated()->find()->getData();
+                            break;
+                        case "bydatedesc":
+                            $pets = $model->orderByCreated('desc')->find()->getData();
+                            break;
+                    }
+                    $filename = 'petitions.phtml';
+                    header('Content-disposition: attachment; filename=' . $filename);
+                    header('Content-type: text/html');
+                    $this->view->data = $pets;
+                    $this->view->render('export/html');
+                    die();
+                }
             }
             $petmodel = new \pet4web\PetitionsQuery();
             $petitionpages = $petmodel->paginate($petpage, 10);

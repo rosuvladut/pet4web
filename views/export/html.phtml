@@ -1,0 +1,46 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/header.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/login-content.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/footer.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/home-contents.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/new-petition.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/petitions.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/petitionView.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo SKIN?>css/myAccount.css" />
+</head>
+    <div class="login pets">
+        <div class="login-content">
+            <h1><p>Petitions page</p></h1>
+        </div>
+        <div class="table-petitions">
+            <!-- <hr> -->
+            <table class="table-columns" width="100%" align="center" cellpadding="0" cellspacing="1" border="0">
+                <thead>
+                <tr>
+                    <th class="column-name1" align="left"><b>Name</b></th>
+                    <th class="column-name" align="left"><b class="cat_but">Category</b></th>
+                    <th class="column-name" align="left"><b class="signed-but">Signed</b></th>
+                    <th class="column-name" align="left"><b class="target-but">Target</b></th>
+                    <th class="column-name" align="left"><b class="target-but">Started on</b></th>
+                </tr>
+                </thead>
+            </table>
+            <hr>
+            <table class="table-petdetails" width="100%" align="center" cellpadding="0" cellspacing="1" border="0">
+                <?php
+                $pets=$this->data;
+                foreach($pets as $row):?>
+                    <tr>
+                        <td class="pet-name" align="left"><a href="<?php echo URL?>petition/petitiondetail/<?php echo $row->getId()?>"><?php echo $row->getTitle();?></a></td>
+                        <td class="atrCell " align="left"><span class="att-cat" ><?php echo $row->getCategory();?></span></td>
+                        <td class="atrCell" align="left"><span class="att-sig"><?php echo $row->getSigned();?></span></td>
+                        <td class="atrCell" align="left"><span class="att-target"><?php echo $row->getTarget();?></span></td>
+                        <td class="atrCell" align="left"><span class="att-target"><?php echo date_format($row->getCreated(), 'd-m-Y');?></span></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+
+</html>
