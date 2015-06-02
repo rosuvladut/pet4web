@@ -10,20 +10,47 @@ class Petition extends Controller
     function index($page = '')
     {
 //        var_dump($_GET);
+//        var_dump($_SERVER);
 //        die();
         $model = new \pet4web\PetitionsQuery();
         if (!empty($_GET['page']))
             $page = $_GET['page'];
         else
             $page = 1;
-        $pages = $model->orderByCreated('desc')->paginate($page, 10);
-        if(isset($_GET['sortby'])) {
-            if ($_GET['sortby'] == "name") {
-                $pages = $model->orderByTitle()->paginate($page, 10);
+        $pages = $model->paginate($page, 10);
+        if(isset($_GET['sort'])) {
+            switch($_GET['sort']){
+                case "byname":
+                    $pages=$model->orderByTitle()->paginate($page,10);
+                    break;
+                case "bycatasc":
+                    $pages = $model->orderByCategory()->paginate($page, 10);
+                    break;
+                case "bycatdesc":
+                    $pages = $model->orderByCategory('desc')->paginate($page, 10);
+                    break;
+                case "bysignasc":
+                    $pages = $model->orderBySigned()->paginate($page, 10);
+                    break;
+                case "bysigndesc":
+                    $pages = $model->orderBySigned('desc')->paginate($page, 10);
+                    break;
+                case "bytargetdesc":
+                    $pages = $model->orderByTarget('desc')->paginate($page, 10);
+                    break;
+                case "bytargetasc":
+                    $pages = $model->orderByTarget()->paginate($page, 10);
+                    break;
+                case "bydateasc":
+                    $pages = $model->orderByCreated()->paginate($page, 10);
+                    break;
+                case "bydatedesc":
+                    $pages = $model->orderByCreated('desc')->paginate($page, 10);
+                    break;
             }
-            if ($_GET['sortby'] == "signed") {
-                $pages = $model->orderBySigned('desc')->paginate($page, 10);
-            }
+        }
+        else{
+            $pages = $model->orderByCreated('desc')->paginate($page, 10);
         }
         if ($pages->haveToPaginate()) {
             $links = $pages->getLinks();

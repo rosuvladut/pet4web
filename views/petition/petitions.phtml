@@ -6,11 +6,19 @@
     <!-- <h1>Petitions page</h1> -->
     <select id="foo">
         <option value="">Sort by:</option>
-        <option value="<?php echo URL?>petition/index&sortby=name">Name</option>
+        <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=byname">Name</option>
+        <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bycatasc">Categories - Ascending</option>
+        <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bycatdesc">Categories - Descending</option>
+        <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bysignasc">Signatures - Ascending</option>
+        <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bysigndesc">Signatures - Descending</option>
+        <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bytargetdesc">Target - Descending</option>
+        <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bytargetasc">Target - Ascending</option>
+        <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bydateasc">Started date - Ascending</option>
+        <option value="<?php echo $_SERVER['REQUEST_URI']?>&sort=bydatedesc">Started date - Descending</option>
     </select>
 
     <script>
-        document.getElementById("foo").onchange = function() {
+        document.getElementById("foo").onclick = function() {
             if (this.selectedIndex!==0) {
                 window.location.href = this.value;
             }
@@ -43,7 +51,7 @@
                 </tr>
             <?php endforeach; ?>
         </table>
-        <form action="<?php echo URL?>petition/index" method="get">
+        <form action="" method="get">
             <?php
             if($this->pagesExist):
                 foreach($this->pages as $page):?>
