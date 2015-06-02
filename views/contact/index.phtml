@@ -1,6 +1,18 @@
  <?php require "views/header.phtml"; ?>
-	<div class="content">
-		<p style = "color:red"><?php echo "Help template"; ?></p>
-		<a href="<?php echo URL?>">back to home page</a>
+	<div class="login">
+		<div class="login-content">
+			<p>Contact</p>
+		</div>
+		<div class="login-content2" id="feedback">
+			<p>Give us feedback on our website, please send us a message below.</p>
+			<FORM Action="mailto:latesioanaugustin@gmail.com?Subject=[pet4web]-issue" METHOD="POST">
+				<input  id="contact-box" name="ISSUE:" placeholder="Write your message here..">
+				</input><br>
+			<INPUT id="send-issue" type="submit" value="Send"> 
+		</FORM>
+
+
+
+		</div>
 	</div>
 <?php require "views/footer.phtml"; ?>
