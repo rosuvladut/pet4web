@@ -182,7 +182,7 @@ class Petition extends Controller
         if (isset($_SESSION['logg_in']) && $_SESSION['logg_in']) {
             $petmodel = new \pet4web\PetitionsQuery();
 
-            $pet = $petmodel->filterById($petid)->findOneByUserid($_SESSION['userid']);
+            $pet = $petmodel->filterById($petid)->findOne();
 
             //deletes signatures for selected petition
             $sign = new \pet4web\SignaturesQuery();
@@ -199,11 +199,13 @@ class Petition extends Controller
             };
 //            var_dump($comms);
 //            die();
-            $pet->delete();
-            if ($pet->isDeleted()) {
-                $_SESSION['success_message'] = "Petition successfully deleted!";
-            } else {
-                $_SESSION['error_message'] = "Petition couldn't be deleted!";
+            if(!empty($pet)) {
+                $pet->delete();
+                if ($pet->isDeleted()) {
+                    $_SESSION['success_message'] = "Petition successfully deleted!";
+                } else {
+                    $_SESSION['error_message'] = "Petition couldn't be deleted!";
+                }
             }
             header("Location:" . URL . 'myaccount/index');
         } else {
