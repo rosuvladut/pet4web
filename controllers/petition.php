@@ -110,7 +110,8 @@ class Petition extends Controller
             if (empty($_POST['content'])) {
                 $_SESSION['error_message'] = "Comment can't be empty!";
             } else {
-                if (!empty($_SESSION['logg_in']) || $_SESSION['logg_in'] == true) {
+                $logged=isset($_SESSION['logg_in'])?$_SESSION['logg_in']:NULL;
+                if (!empty($logged) || $logged == true) {
                     $comm->setUserid($_SESSION['userid']);
                     $comm->setMessage($_POST['content']);
                     $comm->setPetid($petid);
@@ -182,6 +183,7 @@ class Petition extends Controller
             $petmodel = new \pet4web\PetitionsQuery();
 
             $pet = $petmodel->filterById($petid)->findOneByUserid($_SESSION['userid']);
+
             //deletes signatures for selected petition
             $sign = new \pet4web\SignaturesQuery();
             $sign = $sign->filterByPetid($petid)->find()->getData();
@@ -189,6 +191,14 @@ class Petition extends Controller
                 $row->delete();
             };
 
+            $comms=new \pet4web\CommentsQuery();
+            $comms=$comms->filterByPetid($petid)->find()->getData();
+            foreach ($comms as $comm)
+            {
+                $comm->delete();
+            };
+//            var_dump($comms);
+//            die();
             $pet->delete();
             if ($pet->isDeleted()) {
                 $_SESSION['success_message'] = "Petition successfully deleted!";
@@ -206,7 +216,7 @@ class Petition extends Controller
     {
         if (isset($_SESSION['logg_in']) && $_SESSION['logg_in']) {
             $pet = new \pet4web\PetitionsQuery();
-            $pet = $pet->filterById($petid)->findOneByUserid($_SESSION['userid']);
+            $pet = $pet->filterById($petid)->findOne();
             $this->view->data = $pet;
             if (isset($_POST['name'])&&!empty($_POST['name'])) {
                 $pet->setTitle($_POST['name']);
@@ -220,7 +230,7 @@ class Petition extends Controller
             if (isset($_POST['category'])&&!empty($_POST['category'])) {
                 $pet->setCategory($_POST['category']);
             }
-            if ($pet->save()) {
+            if (!empty($pet)&&$pet->save()) {
                 $_SESSION["success_message"] = "Petition successfully edited!";
             }
             $this->view->render('petition/editpetition');
