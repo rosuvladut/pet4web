@@ -9,8 +9,10 @@ class Logout extends Controller{
 	public function index(){
 		if($_SESSION['logg_in']){
 			$_SESSION['logg_in'] = false;
+            $_SESSION['success_message']="Successfully logged out!";
+            $this->view->render('index/index');
 		}
-		header("Location:" . URL);
+//		header("Location:" . URL);
 	}
 
 }

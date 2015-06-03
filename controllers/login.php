@@ -15,7 +15,9 @@ class Login extends Controller{
 			$model = new \pet4web\UsersQuery();
             $user=$model->findByEmail($_POST['username'])->toArray();
             if(empty($user[0]['Email'])){
-                $this->view->ErrorMessage = "Email not registered!";
+                $_SESSION['error_message'] = "Email not registered!";
+                $this->view->render('login/index');
+                die();
             }
             else if(password_verify($_POST['passwd'],$user[0]['Password'])){
                 $_SESSION['logg_in'] = true;
