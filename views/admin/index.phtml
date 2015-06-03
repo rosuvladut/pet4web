@@ -130,14 +130,35 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function(){
-             $("#adm-all-usr").on("click",function(){
+            $("#adm-all-usr").on("click",function(){
                 $(".adm-all-pet").addClass("hidden");
                 $(".adm-all-usr").removeClass("hidden");
             });
+
             $("#adm-all-pet").on("click",function(){
                 $(".adm-all-usr").addClass("hidden");
                 $(".adm-all-pet").removeClass("hidden");
             });
+
+            function getUrlParameter(sParam)
+            {
+                var sPageURL = window.location.search.substring(1);
+                var sURLVariables = sPageURL.split('&');
+                for (var i = 0; i < sURLVariables.length; i++) 
+                {
+                    var sParameterName = sURLVariables[i].split('=');
+                    if (sParameterName[0] == sParam) 
+                    {
+                        return sParameterName[1];
+                    }
+                }
+            }
+            var a = 'sort';
+            if (getUrlParameter(a) != ''){
+                    $(".adm-all-pet").removeClass("hidden");
+            }
+
+
         });
     </script>
 <?php require "views/footer.phtml"; ?>
